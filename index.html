@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claude Agent Skills — NTU Interactive Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
   :root {
     --ntu-navy: #00205B;
@@ -1133,7 +1134,10 @@ Right-click folder → "Compress" / "Send to ZIP"
 
   <!-- 07a FOLDER TREE -->
   <div class="reveal" style="margin-bottom:2rem">
-    <div class="ds-sub-label">07A — SKILL FOLDER STRUCTURE</div>
+    <div class="ds-sub-label" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+      <span>07A — SKILL FOLDER STRUCTURE</span>
+      <button onclick="downloadEdaSkillZip()" style="background:var(--green);color:#000;border:none;border-radius:0.5rem;padding:0.4rem 0.9rem;font-family:var(--mono);font-size:0.7rem;font-weight:700;cursor:pointer">⬇️ Download ZIP</button>
+    </div>
     <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Click any file below to see its contents and understand what it does.</p>
 
     <div class="tree-wrap">
@@ -1325,55 +1329,61 @@ Right-click folder → "Compress" / "Send to ZIP"
 
   <!-- 07d INSTALL STEPS -->
   <div class="reveal">
-    <div class="ds-sub-label">07D — BUILD THIS SKILL (FREE — BOTH PATHS)</div>
-    <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:0.6rem;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.8rem;color:#86EFAC;display:flex;gap:0.6rem;line-height:1.6">
-      <span style="flex-shrink:0">✅</span>
-      <span><strong>Path A (browser):</strong> Create the folders below, zip them, upload to <strong>claude.ai → Customize → Skills</strong>. &nbsp;|&nbsp; <strong>Path B (terminal):</strong> Copy the commands below into your GitHub Codespace with OpenRouter set up (see Section 06 Path B). Path A (browser) is free. Path B (terminal) requires a paid Claude Pro subscription.</span>
+    <div class="ds-sub-label">07D — GET THE SKILL (ONE CLICK)</div>
+
+    <!-- BIG DOWNLOAD CARD -->
+    <div style="background:linear-gradient(135deg,rgba(34,197,94,0.08) 0%,rgba(99,102,241,0.08) 100%);border:2px solid rgba(34,197,94,0.4);border-radius:1rem;padding:1.75rem;margin-bottom:1.5rem;text-align:center" class="reveal">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem">📦</div>
+      <div style="font-weight:800;font-size:1.1rem;color:var(--text);margin-bottom:0.3rem">eda-analyst Skill — Complete ZIP</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
+        All 4 files pre-built inside: <code style="font-family:var(--mono);font-size:0.85em;background:rgba(255,255,255,0.06);padding:0.1rem 0.4rem;border-radius:3px">SKILL.md</code> · <code style="font-family:var(--mono);font-size:0.85em;background:rgba(255,255,255,0.06);padding:0.1rem 0.4rem;border-radius:3px">scripts/analyze.py</code> · <code style="font-family:var(--mono);font-size:0.85em;background:rgba(255,255,255,0.06);padding:0.1rem 0.4rem;border-radius:3px">references/ds-checklist.md</code> · <code style="font-family:var(--mono);font-size:0.85em;background:rgba(255,255,255,0.06);padding:0.1rem 0.4rem;border-radius:3px">assets/report-template.md</code>
+      </div>
+      <button id="zip-download-btn" onclick="downloadEdaSkillZip()" style="background:var(--green);color:#000;border:none;border-radius:0.6rem;padding:0.85rem 2rem;font-family:var(--mono);font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem">
+        ⬇️ Download eda-analyst.zip
+      </button>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem">Generated in your browser — no server, no login needed</div>
     </div>
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Terminal commands (GitHub Codespace — Claude Code requires paid Pro subscription):</p>
-    <div style="display:flex;flex-direction:column;gap:0">
+
+    <!-- HOW TO USE -->
+    <div style="font-weight:700;font-size:0.8rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem">How to install the ZIP in claude.ai (free)</div>
+    <div style="display:flex;flex-direction:column;gap:0;margin-bottom:1.25rem">
       <div class="install-step">
-        <div class="i-num" style="background:var(--accent);color:white">1</div>
-        <div><div class="i-title">Create all 4 folders at once</div><div class="i-desc">One command makes the full skill structure</div>
-          <div class="i-code">mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}</div>
-          <button class="copy-mini" onclick="dsCopy(this,'mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}')">📋 Copy</button>
+        <div class="i-num" style="background:var(--green);color:#000">1</div>
+        <div><div class="i-title">Download the ZIP above</div>
+          <div class="i-desc">Click the button — <code>eda-analyst.zip</code> saves to your Downloads folder</div>
         </div>
       </div>
       <div class="install-step">
         <div class="i-num" style="background:var(--green);color:#000">2</div>
-        <div><div class="i-title">Create SKILL.md</div><div class="i-desc">The trigger file — Claude reads this to know when and how to use the skill</div>
-          <div class="i-code">nano ~/.claude/skills/eda-analyst/SKILL.md<span style="color:#6B7280">
-# Paste the SKILL.md content from the file tree above
-# Ctrl+O → Enter → Ctrl+X to save</span></div>
+        <div><div class="i-title">Go to claude.ai → Settings</div>
+          <div class="i-code" style="color:#7DD3FC">claude.ai → click your avatar (top right) → Settings</div>
         </div>
       </div>
       <div class="install-step">
-        <div class="i-num" style="background:var(--gold);color:#000">3</div>
-        <div><div class="i-title">Create scripts/analyze.py</div><div class="i-desc">Python script Claude runs automatically on your CSV</div>
-          <div class="i-code">nano ~/.claude/skills/eda-analyst/scripts/analyze.py<span style="color:#6B7280">
-# Paste the analyze.py content from the file tree above</span></div>
+        <div class="i-num" style="background:var(--green);color:#000">3</div>
+        <div><div class="i-title">Enable Code Execution</div>
+          <div class="i-desc">Settings → <strong>Capabilities</strong> → toggle on <strong>Code Execution</strong> (required for scripts/ to run)</div>
         </div>
       </div>
       <div class="install-step">
-        <div class="i-num" style="background:var(--purple);color:white">4</div>
-        <div><div class="i-title">Add references/ and assets/ files</div><div class="i-desc">Copy content from the file tree above for each</div>
-          <div class="i-code">nano ~/.claude/skills/eda-analyst/references/ds-checklist.md
-nano ~/.claude/skills/eda-analyst/assets/report-template.md</div>
+        <div class="i-num" style="background:var(--green);color:#000">4</div>
+        <div><div class="i-title">Upload the ZIP</div>
+          <div class="i-desc">Settings → <strong>Customize</strong> → <strong>Skills</strong> → <strong>Upload a skill</strong> → select <code>eda-analyst.zip</code></div>
         </div>
       </div>
       <div class="install-step">
-        <div class="i-num" style="background:var(--red);color:white">5</div>
-        <div><div class="i-title">Launch Claude and test it!</div><div class="i-desc">Claude will auto-detect your new eda-analyst skill on startup</div>
-          <div class="i-code">claude
-<span style="color:#6B7280"># Then type:</span>
-Please analyse my dataset: student_grades.csv</div>
-          <button class="copy-mini" onclick="dsCopy(this,'claude')">📋 Copy</button>
+        <div class="i-num" style="background:var(--accent);color:white">5</div>
+        <div><div class="i-title">Test it! Upload student_grades.csv and say:</div>
+          <div class="i-code" style="color:#FCD34D">Please analyse my dataset: student_grades.csv</div>
+          <button class="copy-mini" onclick="dsCopy(this,'Please analyse my dataset: student_grades.csv')">📋 Copy</button>
+          <div class="i-desc" style="margin-top:0.4rem">Claude auto-detects the task → activates eda-analyst → runs the full 4-file pipeline 🎉</div>
         </div>
       </div>
     </div>
+
     <div class="ds-callout gold">
       <span>⭐</span>
-      <span><strong>Share with your project team:</strong> Move the skill to <code style="font-family:var(--mono);font-size:0.85em">.claude/skills/eda-analyst/</code> in your repo and commit it. Every teammate gets the same EDA behaviour automatically.</span>
+      <span><strong>Share with your project team:</strong> Send the ZIP to teammates — they upload it the same way. Or put the unzipped folder in your Git repo under <code style="font-family:var(--mono);font-size:0.85em">.claude/skills/eda-analyst/</code> so the whole team gets the skill automatically.</span>
     </div>
   </div>
 </section>
@@ -2140,6 +2150,193 @@ dsRenderTable();
 // ── INIT ──
 loadQuestion();
 updatePreview();
+
+// ── EDA SKILL ZIP DOWNLOAD ──
+async function downloadEdaSkillZip() {
+  const btn = document.getElementById('zip-download-btn');
+  btn.textContent = '⏳ Building ZIP...';
+  btn.disabled = true;
+
+  const skillmd = `---
+name: eda-analyst
+description: Use when user asks to analyse a dataset,
+  explore data, do EDA, understand a CSV,
+  check data quality, or prepare data for ML.
+  Also triggers for "what does my data look like?"
+context: fork
+---
+
+# EDA Analyst Skill
+
+## When this skill runs, always:
+
+1. Run \`scripts/analyze.py\` on the provided dataset
+2. Load \`references/ds-checklist.md\` to guide analysis
+3. Use \`assets/report-template.md\` for output format
+4. Always flag: missing values, class imbalance,
+   data leakage risks, outliers, and skewness
+5. Give at least 3 actionable recommendations
+6. End with a suggested first model to try
+
+## Tone
+Technical but friendly — explain the WHY
+behind each finding. Students need to learn.
+`;
+
+  const analyzepy = `import pandas as pd
+import numpy as np
+import sys
+from scipy import stats
+
+# Load dataset from argument
+csv_path = sys.argv[1] if len(sys.argv) > 1 else "data.csv"
+df = pd.read_csv(csv_path)
+
+# Basic shape
+print(f"SHAPE: {df.shape[0]} rows x {df.shape[1]} cols")
+print(f"COLUMNS: {list(df.columns)}")
+
+# Missing values
+miss = df.isnull().sum()
+print(f"MISSING:\\n{miss[miss>0].to_string()}")
+print(f"MISSING_PCT: {df.isnull().sum().sum()/df.size*100:.1f}%")
+print(f"DUPLICATES: {df.duplicated().sum()}")
+
+# Stats + skew + outliers per numeric column
+for col in df.select_dtypes(include='number').columns:
+    skew = df[col].skew()
+    z = np.abs(stats.zscore(df[col].dropna()))
+    print(f"COL {col}: mean={df[col].mean():.2f} std={df[col].std():.2f} skew={skew:.2f} outliers={(z>3).sum()}")
+
+# Class distribution for target (last column)
+target = df.columns[-1]
+print(f"TARGET: {target}")
+print(f"CLASS_DIST:\\n{df[target].value_counts(normalize=True).round(3).to_string()}")
+
+# Top correlations
+num = df.select_dtypes(include='number')
+print(f"TOP_CORR:\\n{num.corr().iloc[:-1,-1].abs().sort_values(ascending=False).to_string()}")
+print("DONE")
+`;
+
+  const checklist = `# NTU DS Team — EDA Quality Checklist
+
+## 🔴 Critical (always flag)
+- Data Leakage: any feature derived from target?
+  e.g. predicting grade but including exam_score
+- Class Imbalance: flag if any class < 15%
+  Suggest: SMOTE, class_weight, F1 over accuracy
+- Target Skew: for regression, if |skew| > 1
+  suggest log transform
+
+## 🟡 Important
+- Missing > 5%: flag + suggest imputation strategy
+    Normal dist → mean, Skewed → median
+    Categorical → mode or "Unknown"
+    > 40% missing → consider dropping column
+- Outliers: Z-score > 3 — verify real or error
+- Skewness: |skew| > 1 → log/sqrt for linear models
+    Tree models are skew-tolerant
+
+## 📊 First Model by Task
+Classification → LogReg then Random Forest
+Regression     → Linear then Ridge/XGBoost
+Clustering     → K-Means then DBSCAN
+`;
+
+  const reportTemplate = `# EDA Report — {{FILENAME}}
+Generated by eda-analyst · NTU DS Team · {{DATE}}
+---
+
+## 1. Dataset Summary
+| Property | Value |
+|----------|-------|
+| Rows | {{ROWS}} |
+| Features | {{FEATURES}} |
+| Missing | {{MISSING}} |
+| Duplicates | {{DUPLICATES}} |
+| Target | {{TARGET}} |
+| Class distribution | {{TARGET_DIST}} |
+
+## 2. Key Statistics
+{{STATS_TABLE}}
+
+## 3. Quality Flags
+🔴 Critical: {{CRITICAL_FLAGS}}
+🟡 Warnings: {{WARNING_FLAGS}}
+🟢 Passed: {{PASSED_CHECKS}}
+
+## 4. Top Correlations
+{{CORRELATIONS}}
+
+## 5. Recommendations
+{{RECOMMENDATIONS}}
+
+## 6. Suggested First Model
+{{RECOMMENDED_MODEL}}
+---
+Auto-generated by eda-analyst Agent Skill
+`;
+
+  const readme = `# eda-analyst — Claude Agent Skill
+NTU DS&AI Workshop · github.com/anthropics/skills
+
+## Quick Install (Free — browser method)
+1. Go to claude.ai → Settings
+2. Settings → Capabilities → enable Code Execution
+3. Settings → Customize → Skills → Upload a skill
+4. Select this ZIP file (eda-analyst.zip)
+5. Done! Test by uploading a CSV and saying:
+   "Please analyse my dataset: filename.csv"
+
+## Files in this skill
+- SKILL.md               → trigger + instructions (required)
+- scripts/analyze.py     → auto-runs EDA Python script
+- references/ds-checklist.md → NTU DS quality standards
+- assets/report-template.md  → consistent report format
+
+## Customise for your team
+Edit ds-checklist.md with your own thresholds.
+Edit report-template.md to match your report format.
+Re-zip and re-upload whenever you make changes.
+`;
+
+  try {
+    const zip = new JSZip();
+    const folder = zip.folder('eda-analyst');
+    folder.file('SKILL.md', skillmd);
+    folder.file('scripts/analyze.py', analyzepy);
+    folder.file('references/ds-checklist.md', checklist);
+    folder.file('assets/report-template.md', reportTemplate);
+    folder.file('README.md', readme);
+
+    const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'eda-analyst.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    btn.textContent = '✅ Downloaded! Check your Downloads folder';
+    btn.style.background = 'var(--accent)';
+    btn.style.color = 'white';
+    setTimeout(() => {
+      btn.textContent = '⬇️ Download eda-analyst.zip';
+      btn.style.background = 'var(--green)';
+      btn.style.color = '#000';
+      btn.disabled = false;
+    }, 3500);
+  } catch(e) {
+    btn.textContent = '❌ Error — try again';
+    btn.style.background = '#EF4444';
+    btn.style.color = 'white';
+    btn.disabled = false;
+    console.error(e);
+  }
+}
 </script>
 </body>
 </html>
