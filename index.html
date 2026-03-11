@@ -1105,9 +1105,15 @@ description: Use when user asks
         <div style="overflow-x:auto">
           <table class="ds-table" id="ds-dataset-table"></table>
         </div>
-        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);margin-top:0.5rem">Showing first 12 rows · 200 total generated</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-top:0.6rem">
+          <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted)" id="ds-row-count">Showing first 12 rows · 200 total generated</div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <button onclick="dsToggleRows()" id="ds-show-all-btn" style="background:var(--bg3,#141D33);border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:0.65rem;padding:0.3rem 0.7rem;border-radius:0.35rem;cursor:pointer;transition:all 0.15s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">👁 Show all 200 rows</button>
+            <button onclick="dsDownloadCSV()" style="background:var(--green);color:#000;border:none;font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.3rem 0.8rem;border-radius:0.35rem;cursor:pointer;transition:opacity 0.15s;display:flex;align-items:center;gap:0.3rem" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">⬇ Download student_grades.csv</button>
+          </div>
+        </div>
         <div class="ds-callout info" style="margin-top:0.75rem">
-          <span>💡</span> This is a realistic NTU DS assignment dataset generated and embedded in this page. The skill analyses this automatically — no prompting needed.
+          <span>💡</span> 200-row dataset generated and embedded in this page. Download the CSV, then run the EDA skill on it in your Codespace.
         </div>
       </div>
 
@@ -1931,6 +1937,46 @@ function dsCopy(btn, text) {
     btn.textContent='✅ Done';
     setTimeout(()=>btn.textContent='📋 Copy',1800);
   });
+}
+
+// ── DS DEMO: DOWNLOAD CSV ──
+function dsDownloadCSV() {
+  const cols = ['student_id','study_hrs','attendance','prev_gpa','assignments','sleep_hrs','stress','final_grade'];
+  let csv = cols.join(',') + '\n';
+  dsData.forEach(r => {
+    csv += [r.id, r.study, r.att, r.gpa, r.asgn, r.sleep === null ? '' : r.sleep, r.stress, r.grade].join(',') + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'student_grades.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── DS DEMO: TOGGLE SHOW ALL ROWS ──
+let dsShowingAll = false;
+function dsToggleRows() {
+  dsShowingAll = !dsShowingAll;
+  const t = document.getElementById('ds-dataset-table');
+  const btn = document.getElementById('ds-show-all-btn');
+  const count = document.getElementById('ds-row-count');
+  const cols = ['student_id','study_hrs','attendance','prev_gpa','assignments','sleep_hrs','stress','final_grade'];
+  let h = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
+  const rows = dsShowingAll ? dsData : dsData.slice(0, 12);
+  rows.forEach(r => {
+    const gc = r.grade === 'F' ? 'derr' : r.grade.startsWith('A') ? 'dgood' : r.grade === 'C' ? 'dwarn' : '';
+    const ac = r.att >= 85 ? 'dgood' : r.att < 65 ? 'derr' : 'dwarn';
+    h += `<tr>
+      <td class="dnum">${r.id}</td><td class="dnum">${r.study}</td>
+      <td class="${ac}">${r.att}%</td><td class="dnum">${r.gpa}</td>
+      <td class="dnum">${r.asgn}%</td>
+      <td class="${r.sleep === null ? 'dwarn' : 'dnum'}">${r.sleep === null ? '—' : r.sleep}</td>
+      <td class="${r.stress === 'Low' ? 'dgood' : r.stress === 'Very High' ? 'derr' : 'dwarn'}">${r.stress}</td>
+      <td class="${gc}">${r.grade}</td></tr>`;
+  });
+  t.innerHTML = h;
+  btn.textContent = dsShowingAll ? '👁 Show first 12 rows' : '👁 Show all 200 rows';
+  count.textContent = dsShowingAll ? 'Showing all 200 rows' : 'Showing first 12 rows · 200 total generated';
 }
 
 // ── INIT DS DEMO ──
