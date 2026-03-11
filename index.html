@@ -533,7 +533,7 @@
     <a href="#compare">Compare</a>
     <a href="#builder">Build Skill</a>
     <a href="#quiz">Quiz</a>
-    <a href="#deploy">Deploy</a>
+
   </div>
   <div class="nav-badge">FREE</div>
 </nav>
@@ -886,110 +886,7 @@ description: Use when user asks
   </div>
 </section>
 
-<div class="divider"></div>
 
-<!-- SECTION 7: DEPLOY -->
-<section id="deploy">
-  <div class="section-label">07 — DEPLOY THIS SITE</div>
-  <h2>Deploy to the Web</h2>
-  <p class="section-desc">Get this interactive guide live at a public URL so your students can access it from anywhere — completely free in under 5 minutes.</p>
-
-  <div class="deploy-track reveal">
-
-    <div class="deploy-step">
-      <div class="deploy-num n1">1</div>
-      <div class="deploy-content">
-        <h4>Create a GitHub Repository</h4>
-        <p>Go to <strong>github.com → New repository</strong>. Name it <code>ntu-agent-skills</code>. Set it to Public. Don't add README yet.</p>
-        <div class="code-block">
-          <button class="code-block-copy" onclick="copyCode(this, 'cd ~\ngit init ntu-agent-skills\ncd ntu-agent-skills')">copy</button>
-<span class="comment"># In your Codespace terminal:</span>
-<span class="cmd">cd ~
-git init ntu-agent-skills
-cd ntu-agent-skills</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="deploy-step">
-      <div class="deploy-num n2">2</div>
-      <div class="deploy-content">
-        <h4>Save this HTML file into the repo</h4>
-        <p>Download the <code>index.html</code> from this guide and place it in your repo folder, or create it directly in your Codespace.</p>
-        <div class="code-block">
-          <button class="code-block-copy" onclick="copyCode(this, 'curl -o index.html https://your-deploy-url/index.html\n# OR copy/paste the file manually')">copy</button>
-<span class="comment"># If you have the file locally:</span>
-<span class="cmd">ls index.html</span>
-<span class="t-out"># → index.html   ✓</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="deploy-step">
-      <div class="deploy-num n3">3</div>
-      <div class="deploy-content">
-        <h4>Push to GitHub</h4>
-        <p>Commit and push your file to GitHub. Replace <span class="highlight">YOUR_USERNAME</span> with your GitHub username.</p>
-        <div class="code-block">
-          <button class="code-block-copy" onclick="copyCode(this, 'git add index.html\ngit commit -m \"Add NTU Agent Skills guide\"\ngit branch -M main\ngit remote add origin https://github.com/YOUR_USERNAME/ntu-agent-skills.git\ngit push -u origin main')">copy</button>
-<span class="cmd">git add index.html
-git commit -m <span class="highlight">"Add NTU Agent Skills guide"</span>
-git branch -M main
-git remote add origin https://github.com/<span class="highlight">YOUR_USERNAME</span>/ntu-agent-skills.git
-git push -u origin main</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="deploy-step">
-      <div class="deploy-num n4">4</div>
-      <div class="deploy-content">
-        <h4>Enable GitHub Pages</h4>
-        <p>Go to your repo on GitHub → <strong>Settings → Pages → Source: Deploy from branch → main → / (root) → Save</strong>. That's it!</p>
-        <div class="code-block">
-          <button class="code-block-copy" onclick="copyCode(this, '# No terminal needed — do this in the GitHub website:\n# Settings → Pages → Source: main / (root) → Save')">copy</button>
-<span class="comment"># GitHub will show you a green banner:</span>
-<span class="t-success">✓ Your site is live at:</span>
-<span class="highlight">https://YOUR_USERNAME.github.io/ntu-agent-skills/</span>
-<span class="comment"># Takes ~60 seconds to go live</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="deploy-step">
-      <div class="deploy-num n5">5</div>
-      <div class="deploy-content">
-        <h4>Share with students</h4>
-        <p>Copy the URL and share it in your class chat. Students open it in any browser — no login, no install, no cost. Works on phone too!</p>
-        <div class="code-block">
-          <button class="code-block-copy" onclick="copyCode(this, 'https://YOUR_USERNAME.github.io/ntu-agent-skills/')">copy</button>
-<span class="t-success">🎉 Share this link with students:</span>
-<span class="highlight">https://YOUR_USERNAME.github.io/ntu-agent-skills/</span>
-
-<span class="comment"># Optional: Use Vercel for faster CDN</span>
-<span class="cmd">npm i -g vercel
-vercel --prod</span>
-<span class="t-success">✓ Deployed: https://ntu-agent-skills.vercel.app</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Bonus: Vercel alternative -->
-  <div style="margin-top:2rem;background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.5rem" class="reveal">
-    <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem">
-      <span style="font-size:1.3rem">⚡</span>
-      <h4 style="font-size:1rem">Alternative: One-click Netlify deploy (even easier)</h4>
-      <span class="tag free">FREE</span>
-    </div>
-    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;line-height:1.6">Go to <strong>netlify.com → Add new site → Deploy manually</strong> — drag and drop your <code>index.html</code> file. Done. You get a live URL in 10 seconds with zero configuration.</p>
-    <div class="code-block" style="font-size:0.78rem">
-<span class="t-success">Netlify URL: https://random-name-12345.netlify.app</span>
-<span class="comment"># Or connect to GitHub for auto-deploy on every push</span>
-    </div>
-  </div>
-</section>
 
 <footer>
   Built for <strong>NANYANG TECHNOLOGICAL UNIVERSITY</strong> · Singapore<br>
