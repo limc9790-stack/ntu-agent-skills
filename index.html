@@ -843,7 +843,7 @@ description: Use when user asks
     assets/    ← optional
 
 <span style="color:#6B7280"># 🆓 PATH A: Upload ZIP to claude.ai → Customize → Skills
-# 🆓 PATH B: Claude Code + OpenRouter free models (terminal)
+# 💳 PATH B: Claude Code (requires paid Claude Pro subscription)
 # 💳 PATH C: Claude Code + Anthropic direct ($20/mo Pro)</span></div>
       </div>
     </div>
@@ -856,7 +856,7 @@ description: Use when user asks
 <section id="builder">
   <div class="section-label">04 — BUILD IT</div>
   <h2>Build Your Own Skill</h2>
-  <p class="section-desc">Fill in the form to generate your SKILL.md. Then upload it to claude.ai (Path A) or use it in your Claude Code terminal via OpenRouter (Path B) — both completely free.</p>
+  <p class="section-desc">Fill in the form to generate your SKILL.md. Then upload it to claude.ai (Path A — free) or use it in your Claude Code terminal (Path B — requires paid subscription).</p>
 
   <div class="builder-wrap reveal">
     <div class="builder-header">
@@ -966,16 +966,16 @@ description: Use when user asks
 <section id="terminal">
   <div class="section-label">06 — HANDS ON</div>
   <h2>Try It Yourself</h2>
-  <p class="section-desc"><strong style="color:var(--green)">Both paths are FREE.</strong> Choose based on whether you prefer a browser UI or a terminal.</p>
+  <p class="section-desc">The <strong style="color:var(--green)">free path is the browser upload (Path A)</strong>. The terminal path (Path B) requires a paid Claude subscription.</p>
 
   <!-- FREE BADGE BANNER -->
   <div style="background:rgba(34,197,94,0.08);border:2px solid rgba(34,197,94,0.4);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start" class="reveal">
     <div style="font-size:1.3rem;flex-shrink:0">🎉</div>
     <div>
-      <div style="font-weight:700;font-size:0.9rem;color:var(--green);margin-bottom:0.3rem">Full Agent Skills — FREE, both paths!</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--green);margin-bottom:0.3rem">Free path: Upload skill ZIP to claude.ai — works on ALL plans including free</div>
       <div style="font-size:0.82rem;color:var(--muted);line-height:1.6">
-        <strong style="color:var(--text)">Path A (browser):</strong> Upload a skill ZIP to claude.ai → Claude auto-activates it in every chat. No terminal needed.<br>
-        <strong style="color:var(--text)">Path B (terminal):</strong> Use Claude Code CLI via <strong style="color:var(--green)">OpenRouter's free models</strong> — full scripts/, references/, assets/ support. No $20/mo subscription needed.
+        Go to <strong style="color:var(--text)">Settings → Capabilities → enable Code Execution</strong>, then <strong style="color:var(--text)">Customize → Skills → Upload ZIP</strong>. Full Agent Skills work this way — no terminal, no subscription needed.<br>
+        <span style="color:rgba(239,68,68,0.8);margin-top:0.3rem;display:inline-block">⚠️ Claude Code (the terminal tool) requires a paid Claude Pro subscription ($20/mo). The OpenRouter bypass no longer works in recent versions.</span>
       </div>
     </div>
   </div>
@@ -983,10 +983,10 @@ description: Use when user asks
   <!-- PATH TOGGLE -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem" class="reveal">
     <button onclick="showPath('free')" id="path-btn-free" style="background:rgba(34,197,94,0.12);border:2px solid var(--green);color:var(--green);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
-      🆓 PATH A — BROWSER<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Upload ZIP to claude.ai · no install</span>
+      🆓 PATH A — RECOMMENDED<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Upload ZIP to claude.ai · FREE for everyone</span>
     </button>
     <button onclick="showPath('paid')" id="path-btn-paid" style="background:var(--bg2);border:2px solid var(--border);color:var(--muted);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
-      🆓 PATH B — TERMINAL<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Claude Code + OpenRouter · also FREE</span>
+      💳 PATH B — TERMINAL<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Claude Code · requires Pro $20/mo</span>
     </button>
   </div>
 
@@ -1083,80 +1083,35 @@ Right-click folder → "Compress" / "Send to ZIP"
     </div>
   </div>
 
-  <!-- PATH B: FREE — Claude Code + OpenRouter Terminal -->
+  <!-- PATH B: PAID — Claude Code Terminal -->
   <div id="path-paid" style="display:none" class="reveal">
-    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
-      <div style="background:rgba(34,197,94,0.06);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:0.6rem">
-        <span style="font-size:1rem">🆓</span>
-        <span style="font-weight:700;font-size:0.88rem;color:var(--green)">Path B — Claude Code + OpenRouter (FREE terminal)</span>
-        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:2rem">NO SUBSCRIPTION</span>
+    <div style="background:var(--bg2);border:1px solid rgba(251,191,36,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
+      <div style="background:rgba(251,191,36,0.06);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(251,191,36,0.2);display:flex;align-items:center;gap:0.6rem">
+        <span style="font-size:1rem">💳</span>
+        <span style="font-weight:700;font-size:0.88rem;color:var(--gold)">Path B — Claude Code Terminal (requires Pro $20/mo)</span>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:var(--gold);padding:0.15rem 0.5rem;border-radius:2rem">PAID</span>
       </div>
       <div style="padding:1.1rem">
-        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Claude Code normally needs a $20/mo Pro plan — <strong style="color:var(--green)">but you can bypass this by pointing it at OpenRouter's free models instead.</strong> Full skills (scripts/, references/, assets/) work identically. One-time 5-minute setup in your GitHub Codespace.</p>
-
-        <div style="display:flex;flex-direction:column;gap:0;margin-bottom:1rem">
-
-          <div class="install-step">
-            <div class="i-num" style="background:var(--green);color:#000">1</div>
-            <div><div class="i-title">Get a free OpenRouter API key</div>
-            <div class="i-desc">Sign up at openrouter.ai — free, no credit card. Create an API key starting with <code>sk-or-v1-...</code></div>
-            <div class="i-code" style="color:#7DD3FC">https://openrouter.ai → Sign Up → API Keys → Create Key</div>
-            </div>
-          </div>
-
-          <div class="install-step">
-            <div class="i-num" style="background:var(--green);color:#000">2</div>
-            <div><div class="i-title">Install Claude Code CLI (free)</div>
-            <div class="i-code" style="color:#86EFAC">npm install -g @anthropic-ai/claude-code</div>
-            <button class="copy-mini" onclick="dsCopy(this,'npm install -g @anthropic-ai/claude-code')">📋 Copy</button>
-            </div>
-          </div>
-
-          <div class="install-step">
-            <div class="i-num" style="background:var(--gold);color:#000">3</div>
-            <div><div class="i-title">Set 3 env vars → skip the login screen entirely</div>
-            <div class="i-desc">Add to <code>~/.bashrc</code> — this redirects Claude Code to OpenRouter's free models instead of Anthropic's paid API.</div>
-            <div class="i-code" style="color:#86EFAC">export ANTHROPIC_BASE_URL="https://openrouter.ai/api/v1"
-export ANTHROPIC_API_KEY="sk-or-v1-YOUR_KEY_HERE"
-export ANTHROPIC_MODEL="google/gemini-2.5-flash:free"
-export ANTHROPIC_SMALL_FAST_MODEL="meta-llama/llama-3.3-70b-instruct:free"
-<span style="color:#6B7280">
-# Apply immediately:</span>
-source ~/.bashrc</div>
-            <button class="copy-mini" onclick="dsCopy(this,'export ANTHROPIC_BASE_URL=&quot;https://openrouter.ai/api/v1&quot;\nexport ANTHROPIC_API_KEY=&quot;sk-or-v1-YOUR_KEY_HERE&quot;\nexport ANTHROPIC_MODEL=&quot;google/gemini-2.5-flash:free&quot;\nexport ANTHROPIC_SMALL_FAST_MODEL=&quot;meta-llama/llama-3.3-70b-instruct:free&quot;\nsource ~/.bashrc')">📋 Copy</button>
-            </div>
-          </div>
-
-          <div class="install-step">
-            <div class="i-num" style="background:var(--green);color:#000">4</div>
-            <div><div class="i-title">Launch Claude Code — no login screen!</div>
-            <div class="i-code" style="color:#FCD34D">claude
-<span style="color:#6B7280"># Goes straight to chat — no subscription prompt
-# Switch models anytime:</span>
-/model qwen/qwen3-235b-a22b:free</div>
-            <button class="copy-mini" onclick="dsCopy(this,'claude')">📋 Copy</button>
-            </div>
-          </div>
-
-          <div class="install-step">
-            <div class="i-num" style="background:var(--accent);color:white">5</div>
-            <div><div class="i-title">Install the EDA Analyst skill and test</div>
-            <div class="i-code" style="color:#86EFAC">mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}
-nano ~/.claude/skills/eda-analyst/SKILL.md
-<span style="color:#6B7280"># Paste your SKILL.md content, then:</span>
-claude
-<span style="color:#6B7280">&gt; Please analyse this dataset: student_grades.csv</span></div>
-            <button class="copy-mini" onclick="dsCopy(this,'mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}')">📋 Copy</button>
-            </div>
-          </div>
-
+        <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:0.5rem;padding:0.85rem 1rem;margin-bottom:1rem;font-size:0.82rem;color:#FCA5A5;line-height:1.65">
+          ⚠️ <strong>Claude Code terminal requires a paid subscription.</strong> The login screen always asks for Option 1 (Claude Pro/Max $20/mo), Option 2 (Anthropic API pay-per-token), or Option 3 (AWS/Azure/Google — also paid). There is no free bypass in current versions. Use <strong>Path A above</strong> for the free experience.
         </div>
-
-        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.8rem;color:#86EFAC;line-height:1.6">
-          ✅ <strong>What you get (free):</strong> Full Claude Code terminal with Agent Skills — scripts/ auto-run, references/ load on-demand, team sharing via Git, /slash commands, /create-skill. Everything the paid path has.
-        </div>
-        <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.5rem;font-size:0.8rem;color:#93C5FD;line-height:1.6">
-          💡 <strong>Best free models for DS:</strong> <code>google/gemini-2.5-flash:free</code> (recommended), <code>qwen/qwen3-235b-a22b:free</code> (great coder), <code>meta-llama/llama-3.3-70b-instruct:free</code> (fast, light tasks). If one hits its daily limit, switch to another.
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">If you have Claude Pro, here is the terminal workflow with GitHub Codespaces (the terminal itself is free).</p>
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="builder-dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+            <div class="builder-title">GitHub Codespace Terminal — Ubuntu</div>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <span class="t-info">▸ Click a step below to run it</span> <span class="t-cursor"></span>
+          </div>
+          <div class="terminal-step-btns">
+            <button class="step-btn" onclick="runStep(0)">1. Install Claude</button>
+            <button class="step-btn" onclick="runStep(1)">2. Create skill folder</button>
+            <button class="step-btn" onclick="runStep(2)">3. Write SKILL.md</button>
+            <button class="step-btn" onclick="runStep(3)">4. Launch Claude</button>
+            <button class="step-btn" onclick="runStep(4)">5. Use /slash command</button>
+            <button class="step-btn" onclick="runStep(5)">★ Auto-create a skill</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1373,9 +1328,9 @@ claude
     <div class="ds-sub-label">07D — BUILD THIS SKILL (FREE — BOTH PATHS)</div>
     <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:0.6rem;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.8rem;color:#86EFAC;display:flex;gap:0.6rem;line-height:1.6">
       <span style="flex-shrink:0">✅</span>
-      <span><strong>Path A (browser):</strong> Create the folders below, zip them, upload to <strong>claude.ai → Customize → Skills</strong>. &nbsp;|&nbsp; <strong>Path B (terminal):</strong> Copy the commands below into your GitHub Codespace with OpenRouter set up (see Section 06 Path B). Both are completely free.</span>
+      <span><strong>Path A (browser):</strong> Create the folders below, zip them, upload to <strong>claude.ai → Customize → Skills</strong>. &nbsp;|&nbsp; <strong>Path B (terminal):</strong> Copy the commands below into your GitHub Codespace with OpenRouter set up (see Section 06 Path B). Path A (browser) is free. Path B (terminal) requires a paid Claude Pro subscription.</span>
     </div>
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Terminal commands (GitHub Codespace + OpenRouter free):</p>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Terminal commands (GitHub Codespace — Claude Code requires paid Pro subscription):</p>
     <div style="display:flex;flex-direction:column;gap:0">
       <div class="install-step">
         <div class="i-num" style="background:var(--accent);color:white">1</div>
@@ -1603,9 +1558,9 @@ const questions = [
   },
   {
     q: "Which of these gives you the FULL Claude Code terminal with Agent Skills for FREE?",
-    opts: ["Only Claude Pro ($20/mo) works", "Upload a skill ZIP to claude.ai (Path A, browser only)", "Claude Code + OpenRouter free models — set 3 env vars, no subscription", "You need GitHub Copilot"],
+    opts: ["Only Claude Pro ($20/mo) works", "Upload a skill ZIP to claude.ai — works on the FREE plan", "Claude Code + OpenRouter free models — set 3 env vars, no subscription needed", "You need GitHub Copilot"],
     ans: 2,
-    explain: "✅ Claude Code + OpenRouter is completely free! Install Claude Code CLI (free), get a free OpenRouter API key, set ANTHROPIC_BASE_URL=https://openrouter.ai/api/v1 and the other 2 env vars. No Anthropic subscription needed. Full Agent Skills — scripts/, references/, assets/ — all work identically with free models like Gemini 2.5 Flash."
+    explain: "✅ Upload a skill ZIP to claude.ai — this works on the FREE plan! Go to Settings → Capabilities → enable Code Execution, then Customize → Skills → Upload ZIP. Claude Code (the terminal tool) requires a paid subscription — there is no working free bypass in current versions."
   }
 ];
 
