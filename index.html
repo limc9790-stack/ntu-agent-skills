@@ -647,7 +647,7 @@
     <span class="hl">Agent Skills</span>
   </h1>
   <p class="hero-sub">
-    An interactive guide to understanding Claude Agent Skills — what they are, why they matter, and how to use them. Start free with claude.ai Projects, or go deeper with Claude Code. <strong>Core concepts are 100% free to learn.</strong>
+    An interactive guide to Claude Agent Skills — what they are, why they matter, and how to build your own. <strong>Two free paths:</strong> upload a ZIP to claude.ai (browser, no install) or run Claude Code via OpenRouter's free models (full terminal). <strong>Both 100% free.</strong>
   </p>
   <div class="hero-ctas">
     <a href="#compare" class="btn btn-primary">▶ Start Learning</a>
@@ -842,9 +842,9 @@ description: Use when user asks
     scripts/   ← optional
     assets/    ← optional
 
-<span style="color:#6B7280"># 🆓 FREE: Paste instructions into
-#    claude.ai → Projects → Knowledge
-# 💳 Full skills: Claude Pro ($20/mo)</span></div>
+<span style="color:#6B7280"># 🆓 PATH A: Upload ZIP to claude.ai → Customize → Skills
+# 🆓 PATH B: Claude Code + OpenRouter free models (terminal)
+# 💳 PATH C: Claude Code + Anthropic direct ($20/mo Pro)</span></div>
       </div>
     </div>
   </div>
@@ -856,7 +856,7 @@ description: Use when user asks
 <section id="builder">
   <div class="section-label">04 — BUILD IT</div>
   <h2>Build Your Own Skill</h2>
-  <p class="section-desc">Fill in the form to generate your SKILL.md. Then paste the instructions into a <strong>claude.ai Project</strong> (free) or copy into your Codespace (Claude Pro $20/mo).</p>
+  <p class="section-desc">Fill in the form to generate your SKILL.md. Then upload it to claude.ai (Path A) or use it in your Claude Code terminal via OpenRouter (Path B) — both completely free.</p>
 
   <div class="builder-wrap reveal">
     <div class="builder-header">
@@ -966,122 +966,197 @@ description: Use when user asks
 <section id="terminal">
   <div class="section-label">06 — HANDS ON</div>
   <h2>Try It Yourself</h2>
-  <p class="section-desc">Two paths to using Agent Skills — choose based on what you have access to.</p>
+  <p class="section-desc"><strong style="color:var(--green)">Both paths are FREE.</strong> Choose based on whether you prefer a browser UI or a terminal.</p>
 
-  <!-- COST BANNER -->
-  <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start" class="reveal">
-    <div style="font-size:1.2rem;flex-shrink:0">⚠️</div>
+  <!-- FREE BADGE BANNER -->
+  <div style="background:rgba(34,197,94,0.08);border:2px solid rgba(34,197,94,0.4);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start" class="reveal">
+    <div style="font-size:1.3rem;flex-shrink:0">🎉</div>
     <div>
-      <div style="font-weight:700;font-size:0.88rem;color:var(--gold);margin-bottom:0.3rem">Claude Code requires a paid subscription</div>
-      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6">Claude Code (the terminal tool) needs a <strong style="color:var(--text)">Claude Pro ($20/month)</strong> or higher plan. The free claude.ai plan does not include Claude Code access. <strong style="color:var(--text)">Path A below is 100% free</strong> and works for learning all the core concepts tonight.</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--green);margin-bottom:0.3rem">Full Agent Skills — FREE, both paths!</div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--text)">Path A (browser):</strong> Upload a skill ZIP to claude.ai → Claude auto-activates it in every chat. No terminal needed.<br>
+        <strong style="color:var(--text)">Path B (terminal):</strong> Use Claude Code CLI via <strong style="color:var(--green)">OpenRouter's free models</strong> — full scripts/, references/, assets/ support. No $20/mo subscription needed.
+      </div>
     </div>
   </div>
 
   <!-- PATH TOGGLE -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem" class="reveal">
     <button onclick="showPath('free')" id="path-btn-free" style="background:rgba(34,197,94,0.12);border:2px solid var(--green);color:var(--green);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
-      🆓 PATH A<br><span style="font-size:0.65rem;font-weight:400;opacity:0.8">claude.ai Projects · FREE</span>
+      🆓 PATH A — BROWSER<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Upload ZIP to claude.ai · no install</span>
     </button>
     <button onclick="showPath('paid')" id="path-btn-paid" style="background:var(--bg2);border:2px solid var(--border);color:var(--muted);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
-      💳 PATH B<br><span style="font-size:0.65rem;font-weight:400;opacity:0.8">Claude Code Terminal · $20/mo</span>
+      🆓 PATH B — TERMINAL<br><span style="font-size:0.63rem;font-weight:400;opacity:0.85">Claude Code + OpenRouter · also FREE</span>
     </button>
   </div>
 
-  <!-- PATH A: FREE — claude.ai Projects -->
+  <!-- PATH A: FREE — Upload ZIP to claude.ai -->
   <div id="path-free" class="reveal">
     <div style="background:var(--bg2);border:1px solid rgba(34,197,94,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
       <div style="background:rgba(34,197,94,0.08);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:0.6rem">
         <span style="font-size:1rem">🆓</span>
-        <span style="font-weight:700;font-size:0.88rem;color:var(--green)">Path A — claude.ai Projects (Free)</span>
-        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:2rem">NO INSTALL NEEDED</span>
+        <span style="font-weight:700;font-size:0.88rem;color:var(--green)">Path A — Upload to claude.ai (Free for ALL plans)</span>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:2rem">NO TERMINAL · NO SUBSCRIPTION</span>
       </div>
       <div style="padding:1.1rem">
-        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Claude.ai's <strong style="color:var(--text)">Projects</strong> feature gives persistent instructions across all chats — similar to a skill. Free tier included. Works in any browser.</p>
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Create your skill folder, zip it, upload to <strong style="color:var(--text)">claude.ai → Customize → Skills</strong>. Claude uses it automatically in every chat. Works on phone, tablet, any browser.</p>
 
         <div style="display:flex;flex-direction:column;gap:0">
+
           <div class="install-step">
             <div class="i-num" style="background:var(--green);color:#000">1</div>
-            <div><div class="i-title">Go to claude.ai and log in</div>
-            <div class="i-desc">Sign up free at claude.ai — no credit card needed for the free tier.</div>
-            <div class="i-code" style="color:#86EFAC">https://claude.ai → Sign up free</div>
+            <div><div class="i-title">Enable Code Execution in Settings</div>
+            <div class="i-desc">Skills require code execution to run. Enable it once and it stays on.</div>
+            <div class="i-code" style="color:#7DD3FC">claude.ai → Settings (top right) → Capabilities
+→ toggle ON "Code execution and file creation" ✓</div>
             </div>
           </div>
+
           <div class="install-step">
             <div class="i-num" style="background:var(--green);color:#000">2</div>
-            <div><div class="i-title">Create a new Project</div>
-            <div class="i-desc">Click <strong>Projects</strong> in the left sidebar → <strong>New Project</strong>. Name it "EDA Analyst".</div>
-            <div class="i-code" style="color:#86EFAC">Left sidebar → Projects → + New Project → "EDA Analyst"</div>
-            </div>
-          </div>
-          <div class="install-step">
-            <div class="i-num" style="background:var(--green);color:#000">3</div>
-            <div><div class="i-title">Add your skill instructions to Project Knowledge</div>
-            <div class="i-desc">Click <strong>Project Knowledge</strong> → paste your SKILL.md instructions (the part below the --- dashes). Claude remembers this across every chat in this project.</div>
-            <div class="i-code" style="color:#7DD3FC"># EDA Analyst Skill
+            <div><div class="i-title">Create your SKILL.md file</div>
+            <div class="i-desc">Use the Skill Builder in Section 04 above, copy the output, save as a file named <code>SKILL.md</code>. Or use the EDA Analyst skill from Section 07.</div>
+            <div class="i-code" style="color:#86EFAC">File: SKILL.md
+<span style="color:#94A3B8">---
+name: eda-analyst
+description: Use when user asks to analyse a dataset,
+  do EDA, explore data, check data quality, or
+  prepare data for machine learning.
+---
+
+# EDA Analyst
 
 When I share a dataset, always:
-1. Identify missing values and suggest imputation strategy
-2. Check for class imbalance in the target column
-3. Flag outliers (Z-score > 3)
-4. Report top 3 correlations with the target
-5. Give at least 3 actionable recommendations
-6. Format output as a structured report
+1. Identify missing values + suggest imputation
+2. Flag class imbalance (any class under 15%)
+3. Report outliers (Z-score > 3)
+4. Show top 3 correlations with target column
+5. Give 3 actionable recommendations
+6. Format as a structured report
 
-Tone: technical but friendly, explain the WHY behind findings.</div>
-            <button class="copy-mini" onclick="dsCopy(this,'# EDA Analyst Skill\n\nWhen I share a dataset, always:\n1. Identify missing values and suggest imputation strategy\n2. Check for class imbalance in the target column\n3. Flag outliers (Z-score > 3)\n4. Report top 3 correlations with the target\n5. Give at least 3 actionable recommendations\n6. Format output as a structured report\n\nTone: technical but friendly, explain the WHY behind findings.')">📋 Copy instructions</button>
+Tone: technical but friendly — explain WHY.</span></div>
+            <button class="copy-mini" onclick="dsCopy(this,'---\nname: eda-analyst\ndescription: Use when user asks to analyse a dataset, do EDA, explore data, check data quality, or prepare data for machine learning.\n---\n\n# EDA Analyst\n\nWhen I share a dataset, always:\n1. Identify missing values + suggest imputation\n2. Flag class imbalance (any class under 15%)\n3. Report outliers (Z-score > 3)\n4. Show top 3 correlations with target column\n5. Give 3 actionable recommendations\n6. Format as a structured report\n\nTone: technical but friendly — explain WHY.')">📋 Copy SKILL.md</button>
             </div>
           </div>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">3</div>
+            <div><div class="i-title">Create a folder and ZIP it</div>
+            <div class="i-desc">Put your SKILL.md inside a folder. The folder name = skill name. Then zip the folder.</div>
+            <div class="i-code" style="color:#86EFAC">📁 eda-analyst/          ← folder name = skill name
+   └── SKILL.md         ← your instructions
+
+Right-click folder → "Compress" / "Send to ZIP"
+→ produces:  eda-analyst.zip  ✓</div>
+            </div>
+          </div>
+
           <div class="install-step">
             <div class="i-num" style="background:var(--green);color:#000">4</div>
-            <div><div class="i-title">Start a new chat inside the Project and test it</div>
-            <div class="i-desc">Every chat you start inside this Project will automatically have your EDA instructions. Upload the student_grades.csv and type:</div>
-            <div class="i-code" style="color:#FCD34D">Please analyse this dataset and give me an EDA report.</div>
-            <button class="copy-mini" onclick="dsCopy(this,'Please analyse this dataset and give me an EDA report.')">📋 Copy</button>
+            <div><div class="i-title">Upload to claude.ai Customize → Skills</div>
+            <div class="i-desc">Navigate to the Skills page, click +, upload your ZIP file.</div>
+            <div class="i-code" style="color:#7DD3FC">claude.ai → Customize → Skills → click "+"
+→ "Upload a skill" → select eda-analyst.zip
+→ Toggle skill ON ✓</div>
             </div>
           </div>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--accent);color:white">5</div>
+            <div><div class="i-title">Test it — start a new chat and upload the dataset</div>
+            <div class="i-desc">Download student_grades.csv from Section 07C below, upload it in a new chat, and type:</div>
+            <div class="i-code" style="color:#FCD34D">Please analyse this dataset.</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:0.4rem">Claude detects the task matches your skill's description → activates automatically → runs your EDA instructions.</div>
+            <button class="copy-mini" onclick="dsCopy(this,'Please analyse this dataset.')">📋 Copy</button>
+            </div>
+          </div>
+
         </div>
 
         <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.75rem;font-size:0.8rem;color:#86EFAC;line-height:1.6">
-          ✅ <strong>What you get:</strong> Claude remembers your EDA instructions for every chat in this Project — no repeating yourself. Free forever. Works on phone too.
+          ✅ <strong>What you get:</strong> Real Agent Skills — Claude auto-activates your EDA skill on any relevant task. Works in every chat, on any device, completely free.
         </div>
-        <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.5rem;font-size:0.8rem;color:#FDE68A;line-height:1.6">
-          ⚠️ <strong>Difference vs Claude Code skills:</strong> Projects don't auto-run Python scripts or load references/ files. Those features need Claude Code (Path B). But for learning the core concept tonight — this is perfect.
+        <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.5rem;font-size:0.8rem;color:#93C5FD;line-height:1.6">
+          💡 <strong>To add scripts/ or references/:</strong> Include them in the same folder before zipping. The full 4-folder structure from Section 07 works exactly the same when uploaded — no Claude Code needed.
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PATH B: PAID — Claude Code Terminal -->
+  <!-- PATH B: FREE — Claude Code + OpenRouter Terminal -->
   <div id="path-paid" style="display:none" class="reveal">
-    <div style="background:var(--bg2);border:1px solid rgba(251,191,36,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
-      <div style="background:rgba(251,191,36,0.06);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(251,191,36,0.2);display:flex;align-items:center;gap:0.6rem">
-        <span style="font-size:1rem">💳</span>
-        <span style="font-weight:700;font-size:0.88rem;color:var(--gold)">Path B — Claude Code Terminal (Pro $20/mo)</span>
-        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:var(--gold);padding:0.15rem 0.5rem;border-radius:2rem">REQUIRES SUBSCRIPTION</span>
+    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
+      <div style="background:rgba(34,197,94,0.06);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:0.6rem">
+        <span style="font-size:1rem">🆓</span>
+        <span style="font-weight:700;font-size:0.88rem;color:var(--green)">Path B — Claude Code + OpenRouter (FREE terminal)</span>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:2rem">NO SUBSCRIPTION</span>
       </div>
       <div style="padding:1.1rem">
-        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Full Agent Skills with scripts/, references/, and assets/ folders. Needs <strong style="color:var(--text)">Claude Pro ($20/mo)</strong> or higher. Run in GitHub Codespaces (free cloud terminal).</p>
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Claude Code normally needs a $20/mo Pro plan — <strong style="color:var(--green)">but you can bypass this by pointing it at OpenRouter's free models instead.</strong> Full skills (scripts/, references/, assets/) work identically. One-time 5-minute setup in your GitHub Codespace.</p>
 
-        <div class="terminal">
-          <div class="terminal-header">
-            <div class="builder-dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-            <div class="builder-title">GitHub Codespace Terminal — Ubuntu (free cloud terminal)</div>
+        <div style="display:flex;flex-direction:column;gap:0;margin-bottom:1rem">
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">1</div>
+            <div><div class="i-title">Get a free OpenRouter API key</div>
+            <div class="i-desc">Sign up at openrouter.ai — free, no credit card. Create an API key starting with <code>sk-or-v1-...</code></div>
+            <div class="i-code" style="color:#7DD3FC">https://openrouter.ai → Sign Up → API Keys → Create Key</div>
+            </div>
           </div>
-          <div class="terminal-body" id="terminal-body">
-            <span class="t-info">▸ Click a step below to run it</span> <span class="t-cursor"></span>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">2</div>
+            <div><div class="i-title">Install Claude Code CLI (free)</div>
+            <div class="i-code" style="color:#86EFAC">npm install -g @anthropic-ai/claude-code</div>
+            <button class="copy-mini" onclick="dsCopy(this,'npm install -g @anthropic-ai/claude-code')">📋 Copy</button>
+            </div>
           </div>
-          <div class="terminal-step-btns">
-            <button class="step-btn" onclick="runStep(0)">1. Install Claude</button>
-            <button class="step-btn" onclick="runStep(1)">2. Create skill folder</button>
-            <button class="step-btn" onclick="runStep(2)">3. Write SKILL.md</button>
-            <button class="step-btn" onclick="runStep(3)">4. Launch Claude</button>
-            <button class="step-btn" onclick="runStep(4)">5. Use /slash command</button>
-            <button class="step-btn" onclick="runStep(5)">★ Auto-create a skill</button>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--gold);color:#000">3</div>
+            <div><div class="i-title">Set 3 env vars → skip the login screen entirely</div>
+            <div class="i-desc">Add to <code>~/.bashrc</code> — this redirects Claude Code to OpenRouter's free models instead of Anthropic's paid API.</div>
+            <div class="i-code" style="color:#86EFAC">export ANTHROPIC_BASE_URL="https://openrouter.ai/api/v1"
+export ANTHROPIC_API_KEY="sk-or-v1-YOUR_KEY_HERE"
+export ANTHROPIC_MODEL="google/gemini-2.5-flash:free"
+export ANTHROPIC_SMALL_FAST_MODEL="meta-llama/llama-3.3-70b-instruct:free"
+<span style="color:#6B7280">
+# Apply immediately:</span>
+source ~/.bashrc</div>
+            <button class="copy-mini" onclick="dsCopy(this,'export ANTHROPIC_BASE_URL=&quot;https://openrouter.ai/api/v1&quot;\nexport ANTHROPIC_API_KEY=&quot;sk-or-v1-YOUR_KEY_HERE&quot;\nexport ANTHROPIC_MODEL=&quot;google/gemini-2.5-flash:free&quot;\nexport ANTHROPIC_SMALL_FAST_MODEL=&quot;meta-llama/llama-3.3-70b-instruct:free&quot;\nsource ~/.bashrc')">📋 Copy</button>
+            </div>
           </div>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">4</div>
+            <div><div class="i-title">Launch Claude Code — no login screen!</div>
+            <div class="i-code" style="color:#FCD34D">claude
+<span style="color:#6B7280"># Goes straight to chat — no subscription prompt
+# Switch models anytime:</span>
+/model qwen/qwen3-235b-a22b:free</div>
+            <button class="copy-mini" onclick="dsCopy(this,'claude')">📋 Copy</button>
+            </div>
+          </div>
+
+          <div class="install-step">
+            <div class="i-num" style="background:var(--accent);color:white">5</div>
+            <div><div class="i-title">Install the EDA Analyst skill and test</div>
+            <div class="i-code" style="color:#86EFAC">mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}
+nano ~/.claude/skills/eda-analyst/SKILL.md
+<span style="color:#6B7280"># Paste your SKILL.md content, then:</span>
+claude
+<span style="color:#6B7280">&gt; Please analyse this dataset: student_grades.csv</span></div>
+            <button class="copy-mini" onclick="dsCopy(this,'mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}')">📋 Copy</button>
+            </div>
+          </div>
+
         </div>
 
-        <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.75rem;font-size:0.8rem;color:#FDE68A;line-height:1.6">
-          ⚠️ <strong>Login screen:</strong> Select <strong>Option 1 — Claude account with subscription</strong>. You need an active Pro, Max, Team or Enterprise plan. Free accounts will not work here.
+        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.8rem;color:#86EFAC;line-height:1.6">
+          ✅ <strong>What you get (free):</strong> Full Claude Code terminal with Agent Skills — scripts/ auto-run, references/ load on-demand, team sharing via Git, /slash commands, /create-skill. Everything the paid path has.
+        </div>
+        <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.5rem;font-size:0.8rem;color:#93C5FD;line-height:1.6">
+          💡 <strong>Best free models for DS:</strong> <code>google/gemini-2.5-flash:free</code> (recommended), <code>qwen/qwen3-235b-a22b:free</code> (great coder), <code>meta-llama/llama-3.3-70b-instruct:free</code> (fast, light tasks). If one hits its daily limit, switch to another.
         </div>
       </div>
     </div>
@@ -1295,12 +1370,12 @@ Tone: technical but friendly, explain the WHY behind findings.</div>
 
   <!-- 07d INSTALL STEPS -->
   <div class="reveal">
-    <div class="ds-sub-label">07D — BUILD THIS SKILL (REQUIRES CLAUDE PRO — $20/MO)</div>
-    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:0.6rem;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.8rem;color:#FDE68A;display:flex;gap:0.6rem;line-height:1.6">
-      <span style="flex-shrink:0">⚠️</span>
-      <span>The full 4-file skill with scripts/ and references/ requires <strong>Claude Code (Pro $20/mo)</strong>. For a free alternative, use <strong>Path A on Section 06</strong> — paste the SKILL.md instructions into a claude.ai Project instead.</span>
+    <div class="ds-sub-label">07D — BUILD THIS SKILL (FREE — BOTH PATHS)</div>
+    <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:0.6rem;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.8rem;color:#86EFAC;display:flex;gap:0.6rem;line-height:1.6">
+      <span style="flex-shrink:0">✅</span>
+      <span><strong>Path A (browser):</strong> Create the folders below, zip them, upload to <strong>claude.ai → Customize → Skills</strong>. &nbsp;|&nbsp; <strong>Path B (terminal):</strong> Copy the commands below into your GitHub Codespace with OpenRouter set up (see Section 06 Path B). Both are completely free.</span>
     </div>
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">If you have Claude Pro: copy these commands into your GitHub Codespace terminal. ~3 minutes total.</p>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Terminal commands (GitHub Codespace + OpenRouter free):</p>
     <div style="display:flex;flex-direction:column;gap:0">
       <div class="install-step">
         <div class="i-num" style="background:var(--accent);color:white">1</div>
@@ -1527,10 +1602,10 @@ const questions = [
     explain: "✅ Efficiency! When Claude runs a script, only the output (e.g. 'Validation passed') enters the context window — not the entire script code. This keeps context usage lean and fast."
   },
   {
-    q: "Which method lets you use Agent Skills completely FREE on claude.ai?",
-    opts: ["Claude Code in GitHub Codespaces", "claude.ai Projects (free tier)", "Anthropic Console API", "GitHub Copilot"],
-    ans: 1,
-    explain: "✅ claude.ai Projects (free tier) lets you add persistent instructions to all chats in a project — giving you skill-like behaviour at zero cost. Claude Code requires at least a Pro subscription ($20/month)."
+    q: "Which of these gives you the FULL Claude Code terminal with Agent Skills for FREE?",
+    opts: ["Only Claude Pro ($20/mo) works", "Upload a skill ZIP to claude.ai (Path A, browser only)", "Claude Code + OpenRouter free models — set 3 env vars, no subscription", "You need GitHub Copilot"],
+    ans: 2,
+    explain: "✅ Claude Code + OpenRouter is completely free! Install Claude Code CLI (free), get a free OpenRouter API key, set ANTHROPIC_BASE_URL=https://openrouter.ai/api/v1 and the other 2 env vars. No Anthropic subscription needed. Full Agent Skills — scripts/, references/, assets/ — all work identically with free models like Gemini 2.5 Flash."
   }
 ];
 
