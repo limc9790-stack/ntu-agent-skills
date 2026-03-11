@@ -647,7 +647,7 @@
     <span class="hl">Agent Skills</span>
   </h1>
   <p class="hero-sub">
-    An interactive guide to understanding Claude Agent Skills — what they are, why they matter, and how to build your own using GitHub Codespaces. <strong>100% free.</strong>
+    An interactive guide to understanding Claude Agent Skills — what they are, why they matter, and how to use them. Start free with claude.ai Projects, or go deeper with Claude Code. <strong>Core concepts are 100% free to learn.</strong>
   </p>
   <div class="hero-ctas">
     <a href="#compare" class="btn btn-primary">▶ Start Learning</a>
@@ -840,7 +840,11 @@ description: Use when user asks
   my-skill/
     SKILL.md   ← required
     scripts/   ← optional
-    assets/    ← optional</div>
+    assets/    ← optional
+
+<span style="color:#6B7280"># 🆓 FREE: Paste instructions into
+#    claude.ai → Projects → Knowledge
+# 💳 Full skills: Claude Pro ($20/mo)</span></div>
       </div>
     </div>
   </div>
@@ -852,7 +856,7 @@ description: Use when user asks
 <section id="builder">
   <div class="section-label">04 — BUILD IT</div>
   <h2>Build Your Own Skill</h2>
-  <p class="section-desc">Fill in the form and instantly see what your SKILL.md file will look like. Then copy it into your Codespace!</p>
+  <p class="section-desc">Fill in the form to generate your SKILL.md. Then paste the instructions into a <strong>claude.ai Project</strong> (free) or copy into your Codespace (Claude Pro $20/mo).</p>
 
   <div class="builder-wrap reveal">
     <div class="builder-header">
@@ -958,31 +962,131 @@ description: Use when user asks
 
 <div class="divider"></div>
 
-<!-- SECTION 6: TERMINAL DEMO -->
+<!-- SECTION 6: HANDS ON -->
 <section id="terminal">
   <div class="section-label">06 — HANDS ON</div>
-  <h2>Live Terminal Walkthrough</h2>
-  <p class="section-desc">Follow these exact commands in your GitHub Codespace. Click each step to see what it does.</p>
+  <h2>Try It Yourself</h2>
+  <p class="section-desc">Two paths to using Agent Skills — choose based on what you have access to.</p>
 
-  <div class="terminal reveal">
-    <div class="terminal-header">
-      <div class="builder-dots">
-        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-      </div>
-      <div class="builder-title">GitHub Codespace Terminal — Ubuntu</div>
-    </div>
-    <div class="terminal-body" id="terminal-body">
-      <span class="t-info">▸ Click a step below to run it</span> <span class="t-cursor"></span>
-    </div>
-    <div class="terminal-step-btns">
-      <button class="step-btn" onclick="runStep(0)">1. Install Claude</button>
-      <button class="step-btn" onclick="runStep(1)">2. Create skill folder</button>
-      <button class="step-btn" onclick="runStep(2)">3. Write SKILL.md</button>
-      <button class="step-btn" onclick="runStep(3)">4. Launch Claude</button>
-      <button class="step-btn" onclick="runStep(4)">5. Use /slash command</button>
-      <button class="step-btn" onclick="runStep(5)">★ Auto-create a skill</button>
+  <!-- COST BANNER -->
+  <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start" class="reveal">
+    <div style="font-size:1.2rem;flex-shrink:0">⚠️</div>
+    <div>
+      <div style="font-weight:700;font-size:0.88rem;color:var(--gold);margin-bottom:0.3rem">Claude Code requires a paid subscription</div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6">Claude Code (the terminal tool) needs a <strong style="color:var(--text)">Claude Pro ($20/month)</strong> or higher plan. The free claude.ai plan does not include Claude Code access. <strong style="color:var(--text)">Path A below is 100% free</strong> and works for learning all the core concepts tonight.</div>
     </div>
   </div>
+
+  <!-- PATH TOGGLE -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem" class="reveal">
+    <button onclick="showPath('free')" id="path-btn-free" style="background:rgba(34,197,94,0.12);border:2px solid var(--green);color:var(--green);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
+      🆓 PATH A<br><span style="font-size:0.65rem;font-weight:400;opacity:0.8">claude.ai Projects · FREE</span>
+    </button>
+    <button onclick="showPath('paid')" id="path-btn-paid" style="background:var(--bg2);border:2px solid var(--border);color:var(--muted);border-radius:0.6rem;padding:0.85rem;font-family:var(--mono);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s">
+      💳 PATH B<br><span style="font-size:0.65rem;font-weight:400;opacity:0.8">Claude Code Terminal · $20/mo</span>
+    </button>
+  </div>
+
+  <!-- PATH A: FREE — claude.ai Projects -->
+  <div id="path-free" class="reveal">
+    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
+      <div style="background:rgba(34,197,94,0.08);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:0.6rem">
+        <span style="font-size:1rem">🆓</span>
+        <span style="font-weight:700;font-size:0.88rem;color:var(--green)">Path A — claude.ai Projects (Free)</span>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:2rem">NO INSTALL NEEDED</span>
+      </div>
+      <div style="padding:1.1rem">
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Claude.ai's <strong style="color:var(--text)">Projects</strong> feature gives persistent instructions across all chats — similar to a skill. Free tier included. Works in any browser.</p>
+
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">1</div>
+            <div><div class="i-title">Go to claude.ai and log in</div>
+            <div class="i-desc">Sign up free at claude.ai — no credit card needed for the free tier.</div>
+            <div class="i-code" style="color:#86EFAC">https://claude.ai → Sign up free</div>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">2</div>
+            <div><div class="i-title">Create a new Project</div>
+            <div class="i-desc">Click <strong>Projects</strong> in the left sidebar → <strong>New Project</strong>. Name it "EDA Analyst".</div>
+            <div class="i-code" style="color:#86EFAC">Left sidebar → Projects → + New Project → "EDA Analyst"</div>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">3</div>
+            <div><div class="i-title">Add your skill instructions to Project Knowledge</div>
+            <div class="i-desc">Click <strong>Project Knowledge</strong> → paste your SKILL.md instructions (the part below the --- dashes). Claude remembers this across every chat in this project.</div>
+            <div class="i-code" style="color:#7DD3FC"># EDA Analyst Skill
+
+When I share a dataset, always:
+1. Identify missing values and suggest imputation strategy
+2. Check for class imbalance in the target column
+3. Flag outliers (Z-score > 3)
+4. Report top 3 correlations with the target
+5. Give at least 3 actionable recommendations
+6. Format output as a structured report
+
+Tone: technical but friendly, explain the WHY behind findings.</div>
+            <button class="copy-mini" onclick="dsCopy(this,'# EDA Analyst Skill\n\nWhen I share a dataset, always:\n1. Identify missing values and suggest imputation strategy\n2. Check for class imbalance in the target column\n3. Flag outliers (Z-score > 3)\n4. Report top 3 correlations with the target\n5. Give at least 3 actionable recommendations\n6. Format output as a structured report\n\nTone: technical but friendly, explain the WHY behind findings.')">📋 Copy instructions</button>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="i-num" style="background:var(--green);color:#000">4</div>
+            <div><div class="i-title">Start a new chat inside the Project and test it</div>
+            <div class="i-desc">Every chat you start inside this Project will automatically have your EDA instructions. Upload the student_grades.csv and type:</div>
+            <div class="i-code" style="color:#FCD34D">Please analyse this dataset and give me an EDA report.</div>
+            <button class="copy-mini" onclick="dsCopy(this,'Please analyse this dataset and give me an EDA report.')">📋 Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.75rem;font-size:0.8rem;color:#86EFAC;line-height:1.6">
+          ✅ <strong>What you get:</strong> Claude remembers your EDA instructions for every chat in this Project — no repeating yourself. Free forever. Works on phone too.
+        </div>
+        <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.5rem;font-size:0.8rem;color:#FDE68A;line-height:1.6">
+          ⚠️ <strong>Difference vs Claude Code skills:</strong> Projects don't auto-run Python scripts or load references/ files. Those features need Claude Code (Path B). But for learning the core concept tonight — this is perfect.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATH B: PAID — Claude Code Terminal -->
+  <div id="path-paid" style="display:none" class="reveal">
+    <div style="background:var(--bg2);border:1px solid rgba(251,191,36,0.3);border-radius:0.75rem;overflow:hidden;margin-bottom:1rem">
+      <div style="background:rgba(251,191,36,0.06);padding:0.75rem 1.1rem;border-bottom:1px solid rgba(251,191,36,0.2);display:flex;align-items:center;gap:0.6rem">
+        <span style="font-size:1rem">💳</span>
+        <span style="font-weight:700;font-size:0.88rem;color:var(--gold)">Path B — Claude Code Terminal (Pro $20/mo)</span>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:0.62rem;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:var(--gold);padding:0.15rem 0.5rem;border-radius:2rem">REQUIRES SUBSCRIPTION</span>
+      </div>
+      <div style="padding:1.1rem">
+        <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.65">Full Agent Skills with scripts/, references/, and assets/ folders. Needs <strong style="color:var(--text)">Claude Pro ($20/mo)</strong> or higher. Run in GitHub Codespaces (free cloud terminal).</p>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="builder-dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+            <div class="builder-title">GitHub Codespace Terminal — Ubuntu (free cloud terminal)</div>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <span class="t-info">▸ Click a step below to run it</span> <span class="t-cursor"></span>
+          </div>
+          <div class="terminal-step-btns">
+            <button class="step-btn" onclick="runStep(0)">1. Install Claude</button>
+            <button class="step-btn" onclick="runStep(1)">2. Create skill folder</button>
+            <button class="step-btn" onclick="runStep(2)">3. Write SKILL.md</button>
+            <button class="step-btn" onclick="runStep(3)">4. Launch Claude</button>
+            <button class="step-btn" onclick="runStep(4)">5. Use /slash command</button>
+            <button class="step-btn" onclick="runStep(5)">★ Auto-create a skill</button>
+          </div>
+        </div>
+
+        <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:0.5rem;padding:0.75rem 1rem;margin-top:0.75rem;font-size:0.8rem;color:#FDE68A;line-height:1.6">
+          ⚠️ <strong>Login screen:</strong> Select <strong>Option 1 — Claude account with subscription</strong>. You need an active Pro, Max, Team or Enterprise plan. Free accounts will not work here.
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 
@@ -1191,8 +1295,12 @@ description: Use when user asks
 
   <!-- 07d INSTALL STEPS -->
   <div class="reveal">
-    <div class="ds-sub-label">07D — BUILD THIS SKILL IN YOUR CODESPACE</div>
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Copy these commands into your GitHub Codespace terminal. ~3 minutes total.</p>
+    <div class="ds-sub-label">07D — BUILD THIS SKILL (REQUIRES CLAUDE PRO — $20/MO)</div>
+    <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:0.6rem;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.8rem;color:#FDE68A;display:flex;gap:0.6rem;line-height:1.6">
+      <span style="flex-shrink:0">⚠️</span>
+      <span>The full 4-file skill with scripts/ and references/ requires <strong>Claude Code (Pro $20/mo)</strong>. For a free alternative, use <strong>Path A on Section 06</strong> — paste the SKILL.md instructions into a claude.ai Project instead.</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">If you have Claude Pro: copy these commands into your GitHub Codespace terminal. ~3 minutes total.</p>
     <div style="display:flex;flex-direction:column;gap:0">
       <div class="install-step">
         <div class="i-num" style="background:var(--accent);color:white">1</div>
@@ -1419,10 +1527,10 @@ const questions = [
     explain: "✅ Efficiency! When Claude runs a script, only the output (e.g. 'Validation passed') enters the context window — not the entire script code. This keeps context usage lean and fast."
   },
   {
-    q: "Which FREE tool allows students to run Claude Code in a cloud terminal without any local installation?",
-    opts: ["Google Colab", "Replit", "GitHub Codespaces", "AWS Cloud9"],
-    ans: 2,
-    explain: "✅ GitHub Codespaces gives every student a free cloud Ubuntu terminal accessible directly in the browser. Students with GitHub Education get 120 core-hours/month free — perfect for this workshop!"
+    q: "Which method lets you use Agent Skills completely FREE on claude.ai?",
+    opts: ["Claude Code in GitHub Codespaces", "claude.ai Projects (free tier)", "Anthropic Console API", "GitHub Copilot"],
+    ans: 1,
+    explain: "✅ claude.ai Projects (free tier) lets you add persistent instructions to all chats in a project — giving you skill-like behaviour at zero cost. Claude Code requires at least a Pro subscription ($20/month)."
   }
 ];
 
@@ -1509,6 +1617,23 @@ function restartQuiz() {
   document.getElementById('quiz-result').style.display = 'none';
   document.getElementById('quiz-main').style.display = 'block';
   loadQuestion();
+}
+
+// ── PATH TOGGLE (Section 06) ──
+function showPath(path) {
+  const free = document.getElementById('path-free');
+  const paid = document.getElementById('path-paid');
+  const btnFree = document.getElementById('path-btn-free');
+  const btnPaid = document.getElementById('path-btn-paid');
+  if (path === 'free') {
+    free.style.display = 'block'; paid.style.display = 'none';
+    btnFree.style.border = '2px solid var(--green)'; btnFree.style.background = 'rgba(34,197,94,0.12)'; btnFree.style.color = 'var(--green)';
+    btnPaid.style.border = '2px solid var(--border)'; btnPaid.style.background = 'var(--bg2)'; btnPaid.style.color = 'var(--muted)';
+  } else {
+    free.style.display = 'none'; paid.style.display = 'block';
+    btnPaid.style.border = '2px solid var(--gold)'; btnPaid.style.background = 'rgba(251,191,36,0.1)'; btnPaid.style.color = 'var(--gold)';
+    btnFree.style.border = '2px solid var(--border)'; btnFree.style.background = 'var(--bg2)'; btnFree.style.color = 'var(--muted)';
+  }
 }
 
 // ── TERMINAL STEPS ──
