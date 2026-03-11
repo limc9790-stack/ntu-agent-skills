@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Agent Skills — NTU Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ntu-navy: #00205B;
+    --ntu-red: #C8102E;
+    --bg: #07091A;
+    --bg2: #0D1230;
+    --card: #111830;
+    --card2: #161F3A;
+    --border: #1E2D5A;
+    --text: #E8EEF7;
+    --muted: #7A8CB0;
+    --accent: #3B82F6;
+    --green: #22C55E;
+    --orange: #F97316;
+    --purple: #A78BFA;
+    --gold: #FBBF24;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(7,9,26,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+  }
+  .nav-logo span { color: var(--ntu-red); font-size: 1.1rem; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: 0.82rem; color: var(--muted); text-decoration: none;
+    font-family: var(--mono); transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-badge {
+    background: var(--ntu-red); color: white;
+    font-size: 0.7rem; font-family: var(--mono);
+    padding: 0.25rem 0.7rem; border-radius: 2rem;
+    font-weight: 700; letter-spacing: 0.05em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,32,91,0.6) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%);
+    top: 30%; left: 60%;
+    pointer-events: none; animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+
+  .ntu-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,16,46,0.12);
+    border: 1px solid rgba(200,16,46,0.3);
+    color: #F87171; font-size: 0.75rem; font-family: var(--mono);
+    padding: 0.4rem 1rem; border-radius: 2rem;
+    margin-bottom: 1.5rem; letter-spacing: 0.06em;
+    animation: fadeDown 0.6s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.7s ease 0.1s both;
+    max-width: 800px;
+  }
+  .hero h1 .hl { color: var(--accent); position: relative; }
+  .hero h1 .hl2 { color: var(--gold); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted); margin: 1.5rem auto 0;
+    max-width: 560px; line-height: 1.7; font-weight: 300;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.8rem; border-radius: 0.5rem;
+    font-family: var(--mono); font-size: 0.85rem;
+    cursor: pointer; transition: all 0.2s; border: none; text-decoration: none;
+    font-weight: 700; letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+    box-shadow: 0 0 30px rgba(59,130,246,0.3);
+  }
+  .btn-primary:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 0 40px rgba(59,130,246,0.5); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* ── SECTION ── */
+  section { position: relative; padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--ntu-red); letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 2rem; height: 2px; background: var(--ntu-red);
+  }
+  h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .section-desc { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 3rem; }
+
+  /* ── COMPARISON TOGGLE ── */
+  .compare-wrap { margin-top: 2rem; }
+  .compare-tabs {
+    display: flex; gap: 0; border-radius: 0.6rem; overflow: hidden;
+    border: 1px solid var(--border); width: fit-content; margin-bottom: 2rem;
+  }
+  .tab-btn {
+    padding: 0.8rem 1.8rem; font-family: var(--mono); font-size: 0.82rem;
+    cursor: pointer; transition: all 0.2s; border: none; font-weight: 700;
+  }
+  .tab-btn.chat { background: var(--card); color: var(--muted); }
+  .tab-btn.skills { background: var(--card); color: var(--muted); }
+  .tab-btn.active.chat { background: var(--orange); color: white; }
+  .tab-btn.active.skills { background: var(--green); color: white; }
+
+  .compare-panel { display: none; animation: fadeUp 0.4s ease both; }
+  .compare-panel.active { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1rem; }
+  .feat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 0.75rem; padding: 1.25rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .feat-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .feat-card .icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+  .feat-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .feat-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .feat-card.good { border-left: 3px solid var(--green); }
+  .feat-card.bad { border-left: 3px solid var(--orange); }
+
+  /* ── INTERACTIVE SKILL BUILDER ── */
+  .builder-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 1rem; overflow: hidden;
+  }
+  .builder-header {
+    background: var(--card2); padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .builder-dots { display: flex; gap: 0.4rem; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FFBD2E; }
+  .dot.g { background: #28CA41; }
+  .builder-title { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+  .builder-body { display: grid; grid-template-columns: 1fr 1fr; }
+  @media(max-width:700px) { .builder-body { grid-template-columns: 1fr; } }
+
+  .builder-left { padding: 1.5rem; border-right: 1px solid var(--border); }
+  .builder-right { padding: 1.5rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label {
+    display: block; font-family: var(--mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.4rem;
+  }
+  .form-input, .form-textarea, .form-select {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border);
+    color: var(--text); border-radius: 0.4rem; padding: 0.65rem 0.9rem;
+    font-family: var(--mono); font-size: 0.82rem;
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-select option { background: var(--bg2); }
+  .generate-btn {
+    width: 100%; padding: 0.85rem; background: var(--accent);
+    color: white; border: none; border-radius: 0.5rem;
+    font-family: var(--mono); font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .generate-btn:hover { background: #2563EB; transform: translateY(-1px); }
+
+  .code-output {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 0.5rem; padding: 1.2rem; min-height: 240px;
+    font-family: var(--mono); font-size: 0.78rem; line-height: 1.7;
+    color: #94A3B8; white-space: pre-wrap; overflow-x: auto;
+    transition: all 0.3s;
+  }
+  .code-output .yaml-key { color: #7DD3FC; }
+  .code-output .yaml-val { color: #86EFAC; }
+  .code-output .yaml-sep { color: #94A3B8; }
+  .code-output .md-h { color: #FCD34D; }
+  .code-output .md-text { color: #E2E8F0; }
+  .code-output .comment { color: #6B7280; }
+  .copy-btn {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--card2); border: 1px solid var(--border);
+    color: var(--muted); font-family: var(--mono); font-size: 0.72rem;
+    padding: 0.4rem 0.8rem; border-radius: 0.3rem;
+    cursor: pointer; transition: all 0.2s; margin-top: 0.75rem;
+  }
+  .copy-btn:hover { border-color: var(--green); color: var(--green); }
+  .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+  /* ── QUIZ SECTION ── */
+  .quiz-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 1rem; padding: 2rem; max-width: 720px; margin: 0 auto;
+  }
+  .quiz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem;
+  }
+  .quiz-progress-bar {
+    height: 4px; background: var(--border); border-radius: 2px;
+    margin-bottom: 2rem; overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--purple));
+    border-radius: 2px; transition: width 0.4s ease;
+  }
+  .quiz-q { font-size: 1.05rem; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.6; }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+  .quiz-option {
+    padding: 0.9rem 1.2rem; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: 0.6rem;
+    cursor: pointer; font-size: 0.88rem; transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .quiz-option:hover:not(.disabled) { border-color: var(--accent); background: rgba(59,130,246,0.08); }
+  .quiz-option.correct { border-color: var(--green); background: rgba(34,197,94,0.1); color: var(--green); }
+  .quiz-option.wrong { border-color: var(--ntu-red); background: rgba(200,16,46,0.1); color: #F87171; }
+  .quiz-option.disabled { cursor: default; }
+  .quiz-opt-letter {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--border); display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+  }
+  .quiz-option.correct .quiz-opt-letter { background: var(--green); color: var(--bg); }
+  .quiz-option.wrong .quiz-opt-letter { background: var(--ntu-red); color: white; }
+  .quiz-feedback {
+    margin-top: 1.2rem; padding: 1rem;
+    border-radius: 0.5rem; font-size: 0.88rem; line-height: 1.6;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; animation: fadeUp 0.3s ease; }
+  .quiz-feedback.right { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #86EFAC; }
+  .quiz-feedback.wrong { background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3); color: #FCA5A5; }
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;
+  }
+  .quiz-score { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+  .quiz-next {
+    padding: 0.7rem 1.5rem; background: var(--accent);
+    color: white; border: none; border-radius: 0.4rem;
+    font-family: var(--mono); font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; display: none;
+  }
+  .quiz-next:hover { background: #2563EB; }
+  .quiz-result {
+    text-align: center; padding: 2rem; display: none;
+  }
+  .quiz-result h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .score-ring {
+    width: 120px; height: 120px; margin: 1.5rem auto;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 2rem; font-weight: 700;
+  }
+
+  /* ── TERMINAL DEMO ── */
+  .terminal {
+    background: #0D1117; border: 1px solid var(--border);
+    border-radius: 0.75rem; overflow: hidden;
+  }
+  .terminal-header {
+    background: #161B22; padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-body {
+    padding: 1.25rem; font-family: var(--mono); font-size: 0.8rem;
+    line-height: 1.9; min-height: 200px;
+  }
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: #E2E8F0; }
+  .t-out { color: var(--muted); }
+  .t-success { color: var(--green); }
+  .t-info { color: var(--accent); }
+  .t-warn { color: var(--gold); }
+  .t-cursor {
+    display: inline-block; width: 8px; height: 14px;
+    background: var(--green); animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .terminal-step-btns {
+    display: flex; gap: 0.5rem; padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border); background: #161B22;
+    flex-wrap: wrap;
+  }
+  .step-btn {
+    padding: 0.4rem 0.9rem; background: var(--card2);
+    border: 1px solid var(--border); color: var(--muted);
+    font-family: var(--mono); font-size: 0.72rem;
+    border-radius: 0.3rem; cursor: pointer; transition: all 0.2s;
+  }
+  .step-btn:hover, .step-btn.active { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.08); }
+
+  /* ── SKILL ANATOMY ── */
+  .anatomy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media(max-width:700px){ .anatomy-grid { grid-template-columns:1fr } }
+  .anatomy-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 0.75rem; padding: 1.25rem;
+    cursor: pointer; transition: all 0.25s; position: relative;
+  }
+  .anatomy-item:hover, .anatomy-item.open { border-color: var(--purple); }
+  .anatomy-item.open { background: rgba(167,139,250,0.07); }
+  .anatomy-item-head {
+    display: flex; align-items: center; gap: 0.8rem; justify-content: space-between;
+  }
+  .anatomy-item-left { display: flex; align-items: center; gap: 0.8rem; }
+  .anatomy-tag {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 700;
+    padding: 0.2rem 0.5rem; border-radius: 0.25rem; background: var(--border); color: var(--muted);
+  }
+  .anatomy-arrow { color: var(--muted); font-size: 0.8rem; transition: transform 0.2s; }
+  .anatomy-item.open .anatomy-arrow { transform: rotate(180deg); }
+  .anatomy-item h4 { font-size: 0.9rem; font-weight: 700; }
+  .anatomy-detail {
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+    font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+  }
+  .anatomy-item.open .anatomy-detail { max-height: 200px; padding-top: 0.8rem; }
+  .anatomy-code {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 0.4rem;
+    padding: 0.6rem 0.9rem; font-family: var(--mono); font-size: 0.75rem;
+    color: #86EFAC; margin-top: 0.6rem;
+  }
+
+  /* ── DEPLOYMENT STEPS ── */
+  .deploy-track {
+    display: flex; flex-direction: column; gap: 0; position: relative;
+  }
+  .deploy-track::before {
+    content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), var(--purple), var(--green));
+  }
+  .deploy-step {
+    display: grid; grid-template-columns: 3.5rem 1fr;
+    gap: 1rem; padding: 1.25rem 0; position: relative; z-index: 1;
+  }
+  .deploy-num {
+    width: 3rem; height: 3rem; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .deploy-num.n1 { background: var(--accent); color: white; }
+  .deploy-num.n2 { background: var(--purple); color: white; }
+  .deploy-num.n3 { background: var(--gold); color: var(--bg); }
+  .deploy-num.n4 { background: var(--green); color: var(--bg); }
+  .deploy-num.n5 { background: var(--ntu-red); color: white; }
+  .deploy-content { padding-top: 0.5rem; }
+  .deploy-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .deploy-content p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.75rem; line-height: 1.6; }
+  .code-block {
+    background: #0D1117; border: 1px solid var(--border); border-radius: 0.5rem;
+    padding: 0.9rem 1.1rem; font-family: var(--mono); font-size: 0.78rem;
+    color: #86EFAC; line-height: 1.8; position: relative;
+  }
+  .code-block .comment { color: #6B7280; }
+  .code-block .cmd { color: #E2E8F0; }
+  .code-block .highlight { color: var(--gold); }
+  .code-block-copy {
+    position: absolute; top: 0.5rem; right: 0.5rem;
+    background: var(--card2); border: 1px solid var(--border);
+    color: var(--muted); font-family: var(--mono); font-size: 0.65rem;
+    padding: 0.25rem 0.6rem; border-radius: 0.25rem; cursor: pointer; transition: all 0.2s;
+  }
+  .code-block-copy:hover { border-color: var(--green); color: var(--green); }
+
+  /* ── CHAT SIMULATION ── */
+  .chat-sim {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 1rem; overflow: hidden; max-width: 720px; margin: 0 auto;
+  }
+  .chat-sim-header {
+    background: var(--card2); padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .chat-avatar.claude { background: linear-gradient(135deg, var(--accent), var(--purple)); }
+  .chat-avatar.user { background: var(--ntu-navy); border: 1px solid var(--ntu-red); }
+  .chat-sim-body { padding: 1.5rem; min-height: 300px; display: flex; flex-direction: column; gap: 1rem; }
+  .chat-msg { display: flex; gap: 0.8rem; align-items: flex-start; animation: fadeUp 0.4s ease both; }
+  .chat-msg.user { flex-direction: row-reverse; }
+  .chat-bubble {
+    max-width: 80%; padding: 0.75rem 1rem;
+    border-radius: 1rem; font-size: 0.85rem; line-height: 1.6;
+  }
+  .chat-msg.claude .chat-bubble {
+    background: var(--card2); border: 1px solid var(--border);
+    border-top-left-radius: 0.25rem;
+  }
+  .chat-msg.user .chat-bubble {
+    background: var(--accent); color: white;
+    border-top-right-radius: 0.25rem;
+  }
+  .chat-sim-footer {
+    padding: 1rem 1.5rem; border-top: 1px solid var(--border);
+    display: flex; gap: 0.6rem;
+  }
+  .scenario-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .scenario-btn {
+    padding: 0.5rem 1rem; background: var(--bg2);
+    border: 1px solid var(--border); color: var(--muted);
+    font-family: var(--mono); font-size: 0.72rem; border-radius: 2rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .scenario-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem; text-align: center;
+    font-size: 0.82rem; color: var(--muted);
+    font-family: var(--mono);
+  }
+  footer strong { color: var(--ntu-red); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MISC ── */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+    padding: 0.25rem 0.65rem; border-radius: 2rem;
+  }
+  .tag.free { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .tag.new { background: rgba(59,130,246,0.12); color: var(--accent); border: 1px solid rgba(59,130,246,0.3); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <span>◆</span> NTU × Claude Agent Skills
+  </div>
+  <div class="nav-links">
+    <a href="#compare">Compare</a>
+    <a href="#builder">Build Skill</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#deploy">Deploy</a>
+  </div>
+  <div class="nav-badge">FREE</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="ntu-tag">🏛 NANYANG TECHNOLOGICAL UNIVERSITY · SINGAPORE</div>
+  <h1>
+    Normal Chat <span class="hl2">vs</span><br>
+    <span class="hl">Agent Skills</span>
+  </h1>
+  <p class="hero-sub">
+    An interactive guide to understanding Claude Agent Skills — what they are, why they matter, and how to build your own using GitHub Codespaces. <strong>100% free.</strong>
+  </p>
+  <div class="hero-ctas">
+    <a href="#compare" class="btn btn-primary">▶ Start Learning</a>
+    <a href="#builder" class="btn btn-outline">🛠 Build a Skill</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 1: COMPARE -->
+<section id="compare">
+  <div class="section-label">01 — UNDERSTAND</div>
+  <h2>What's the difference?</h2>
+  <p class="section-desc">Toggle between the two modes to see exactly what you get — and what you're missing — with each approach.</p>
+
+  <div class="compare-wrap reveal">
+    <div class="compare-tabs">
+      <button class="tab-btn chat active" onclick="showTab('chat')">💬 Normal Chat</button>
+      <button class="tab-btn skills" onclick="showTab('skills')">🧠 Agent Skills</button>
+    </div>
+    <div id="tab-chat" class="compare-panel active">
+      <div class="feat-card bad"><div class="icon">🔁</div><h4>Repeat Every Chat</h4><p>You have to re-type the same instructions in every new conversation. No memory between sessions.</p></div>
+      <div class="feat-card bad"><div class="icon">📋</div><h4>Generic Responses</h4><p>Claude gives general answers — it doesn't know your specific workflow, brand guidelines, or project conventions.</p></div>
+      <div class="feat-card bad"><div class="icon">🛠️</div><h4>No Auto-Tools</h4><p>Claude can't automatically run scripts, access files, or execute workflows. Everything is manual.</p></div>
+      <div class="feat-card bad"><div class="icon">👤</div><h4>Just You</h4><p>Your prompts stay with you. If a teammate wants the same behaviour, they write their own prompts from scratch.</p></div>
+      <div class="feat-card good"><div class="icon">⚡</div><h4>Instant to Start</h4><p>Just open claude.ai and type. Perfect for one-off questions, brainstorming, quick answers.</p></div>
+      <div class="feat-card good"><div class="icon">🌐</div><h4>Web Search Built-In</h4><p>Claude can search the web in real-time to answer questions about current events and recent info.</p></div>
+    </div>
+    <div id="tab-skills" class="compare-panel">
+      <div class="feat-card good"><div class="icon">♻️</div><h4>Write Once, Use Forever</h4><p>Put instructions in SKILL.md once. Claude loads it automatically every time it's relevant — no repetition.</p></div>
+      <div class="feat-card good"><div class="icon">🎯</div><h4>Domain Expert Behaviour</h4><p>Claude follows your exact workflow, tone, coding style, and conventions — every single time.</p></div>
+      <div class="feat-card good"><div class="icon">⚙️</div><h4>Scripts Run Automatically</h4><p>A skill can include Python/bash scripts that Claude executes. The output (not the code) goes to Claude — saving tokens.</p></div>
+      <div class="feat-card good"><div class="icon">👥</div><h4>Team Sharing</h4><p>Commit your skill folder to git. Every teammate gets the same AI behaviour — no inconsistency.</p></div>
+      <div class="feat-card good"><div class="icon">⚡</div><h4>Slash Commands</h4><p>Trigger any skill with /skill-name. Or let Claude auto-detect when to use it based on the description.</p></div>
+      <div class="feat-card good"><div class="icon">📦</div><h4>Pre-Built Library</h4><p>Anthropic provides free skills for PPTX, Excel, Word, PDF. Clone github.com/anthropics/skills and use them instantly.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: CHAT SIMULATION -->
+<section id="simulation">
+  <div class="section-label">02 — SEE IT LIVE</div>
+  <h2>Feel the difference</h2>
+  <p class="section-desc">Click a scenario below to see how normal chat vs agent skills handle the same request differently.</p>
+
+  <div class="chat-sim reveal">
+    <div class="chat-sim-header">
+      <div class="chat-avatar claude">🤖</div>
+      <div>
+        <div style="font-size:0.88rem;font-weight:700">Claude</div>
+        <div style="font-size:0.72rem;color:var(--muted);font-family:var(--mono)" id="chat-mode-label">Mode: Normal Chat</div>
+      </div>
+      <div style="margin-left:auto">
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.8rem;color:var(--muted);font-family:var(--mono)">
+          <span>Skill Mode</span>
+          <div class="toggle-wrap" onclick="toggleChatMode()" id="chat-toggle" style="width:42px;height:22px;background:var(--border);border-radius:11px;position:relative;cursor:pointer;transition:background 0.2s">
+            <div id="toggle-knob" style="width:18px;height:18px;background:white;border-radius:50%;position:absolute;top:2px;left:2px;transition:left 0.2s"></div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="chat-sim-body" id="chat-body">
+      <div class="chat-msg claude">
+        <div class="chat-avatar claude">🤖</div>
+        <div class="chat-bubble">Hi! I'm Claude. Click a scenario below to see how I respond — then toggle <strong>Skill Mode</strong> to see the difference when I have a skill loaded! 🎓</div>
+      </div>
+    </div>
+    <div class="chat-sim-footer" style="flex-direction:column;gap:0.6rem">
+      <div style="font-size:0.75rem;color:var(--muted);font-family:var(--mono)">Choose a scenario:</div>
+      <div class="scenario-btns">
+        <button class="scenario-btn" onclick="runScenario('deploy')">🚀 Deploy my app</button>
+        <button class="scenario-btn" onclick="runScenario('report')">📊 Generate report</button>
+        <button class="scenario-btn" onclick="runScenario('code')">💻 Review my code</button>
+        <button class="scenario-btn" onclick="runScenario('essay')">✍️ Write an essay</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: ANATOMY -->
+<section id="anatomy">
+  <div class="section-label">03 — ANATOMY</div>
+  <h2>Inside a SKILL.md</h2>
+  <p class="section-desc">Every skill is just a folder with a SKILL.md file. Click each part to learn what it does.</p>
+
+  <div class="anatomy-grid reveal">
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">YAML</span>
+          <h4>Frontmatter — the "trigger"</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        This is how Claude decides <em>when</em> to use your skill. The <code>description</code> field is the most important — Claude reads it and auto-loads the skill when your task matches.
+        <div class="anatomy-code">--- 
+name: my-skill
+description: Use when user asks
+  about deployment or cloud
+---</div>
+      </div>
+    </div>
+
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">MARKDOWN</span>
+          <h4>Instructions — what Claude does</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        The body of SKILL.md is plain Markdown. Write step-by-step instructions, rules, examples, or anything you want Claude to follow every time this skill runs.
+        <div class="anatomy-code"># Deploy Skill
+1. Always run tests first
+2. Use docker build
+3. Push to registry
+4. Run smoke test</div>
+      </div>
+    </div>
+
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">SCRIPTS/</span>
+          <h4>Python/Bash scripts</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        Add executable scripts that Claude runs automatically. Only the <em>output</em> enters Claude's context — not the code itself. This saves tokens and keeps logic clean.
+        <div class="anatomy-code">scripts/
+  validate.py   # ← Claude runs this
+  deploy.sh     # ← and this</div>
+      </div>
+    </div>
+
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">REFERENCES/</span>
+          <h4>Extra documentation</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        Put large docs, API references, or guidelines here. Claude loads them <em>on demand</em> — only when needed — so they don't waste context window space on every call.
+        <div class="anatomy-code">references/
+  api-guide.md
+  brand-colors.md
+  db-schema.sql</div>
+      </div>
+    </div>
+
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">ASSETS/</span>
+          <h4>Templates & files</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        Store output templates, fonts, images, or boilerplate files here. Claude references them by path — it copies and fills them in rather than generating from scratch.
+        <div class="anatomy-code">assets/
+  report-template.docx
+  logo.png
+  email-template.html</div>
+      </div>
+    </div>
+
+    <div class="anatomy-item" onclick="toggleAnatomy(this)">
+      <div class="anatomy-item-head">
+        <div class="anatomy-item-left">
+          <span class="anatomy-tag">WHERE</span>
+          <h4>Where to put your skill</h4>
+        </div>
+        <span class="anatomy-arrow">▼</span>
+      </div>
+      <div class="anatomy-detail">
+        Personal skills (all projects): <code>~/.claude/skills/</code><br>
+        Project-specific: <code>.claude/skills/</code> in your repo<br>
+        Team/shared: commit <code>.claude/skills/</code> to git
+        <div class="anatomy-code">~/.claude/skills/
+  my-skill/
+    SKILL.md   ← required
+    scripts/   ← optional
+    assets/    ← optional</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: INTERACTIVE SKILL BUILDER -->
+<section id="builder">
+  <div class="section-label">04 — BUILD IT</div>
+  <h2>Build Your Own Skill</h2>
+  <p class="section-desc">Fill in the form and instantly see what your SKILL.md file will look like. Then copy it into your Codespace!</p>
+
+  <div class="builder-wrap reveal">
+    <div class="builder-header">
+      <div class="builder-dots">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      </div>
+      <div class="builder-title">skill-generator.tool — NTU Claude Workshop</div>
+    </div>
+    <div class="builder-body">
+      <div class="builder-left">
+        <div class="form-group">
+          <label class="form-label">SKILL NAME (becomes /slash-command)</label>
+          <input class="form-input" id="skill-name" placeholder="e.g. code-reviewer" oninput="updatePreview()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">DESCRIPTION (when should Claude use this?)</label>
+          <input class="form-input" id="skill-desc" placeholder="e.g. Use when user asks to review code" oninput="updatePreview()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">TRIGGER MODE</label>
+          <select class="form-select" id="skill-trigger" onchange="updatePreview()">
+            <option value="auto">Auto (Claude decides when to use)</option>
+            <option value="manual">Manual only (/slash-command)</option>
+            <option value="fork">Fork (run in subagent)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">INSTRUCTIONS (what should Claude always do?)</label>
+          <textarea class="form-textarea" id="skill-instructions" placeholder="e.g.&#10;1. Always check for security issues&#10;2. Flag performance bottlenecks&#10;3. Suggest better variable names" oninput="updatePreview()"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CATEGORY (for quick templates)</label>
+          <select class="form-select" id="skill-category" onchange="applyTemplate()">
+            <option value="">— Custom —</option>
+            <option value="code">💻 Code Review</option>
+            <option value="deploy">🚀 Deployment</option>
+            <option value="report">📊 Report Writing</option>
+            <option value="essay">✍️ Essay Feedback</option>
+            <option value="data">📈 Data Analysis</option>
+          </select>
+        </div>
+        <button class="generate-btn" onclick="generateSkill()">⚡ Generate SKILL.md</button>
+      </div>
+      <div class="builder-right">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--muted)">📄 SKILL.md preview</div>
+          <button class="copy-btn" id="copy-btn" onclick="copySkill()">📋 Copy</button>
+        </div>
+        <div class="code-output" id="skill-preview">
+<span class="comment"># Fill in the form on the left
+# and your SKILL.md will
+# appear here instantly ✨
+#
+# Or pick a template from
+# the CATEGORY dropdown!</span>
+        </div>
+        <div style="margin-top:1rem;padding:0.9rem;background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem">
+          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--accent);margin-bottom:0.5rem">💡 TO INSTALL THIS SKILL:</div>
+          <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.9">
+            <span style="color:var(--green)">mkdir</span> -p ~/.claude/skills/<span id="install-name" style="color:var(--gold)">your-skill</span><br>
+            <span style="color:var(--green)">nano</span> ~/.claude/skills/<span id="install-name2" style="color:var(--gold)">your-skill</span>/SKILL.md<br>
+            <span class="comment"># paste the code above, save (Ctrl+O, Enter, Ctrl+X)</span><br>
+            <span style="color:var(--green)">claude</span> <span class="comment"># launch Claude Code to test!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: QUIZ -->
+<section id="quiz">
+  <div class="section-label">05 — TEST YOURSELF</div>
+  <h2>Quick Knowledge Check</h2>
+  <p class="section-desc">5 questions to make sure you've got the concepts locked in. No pressure — but try to get 5/5! 🎯</p>
+
+  <div class="quiz-wrap reveal">
+    <div id="quiz-main">
+      <div class="quiz-header">
+        <div style="font-family:var(--mono);font-size:0.8rem;color:var(--muted)">Question <span id="q-num">1</span> of 5</div>
+        <div class="quiz-score">Score: <span id="score">0</span>/5</div>
+      </div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-bar" style="width:0%"></div></div>
+      <div class="quiz-q" id="quiz-question"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-nav">
+        <div></div>
+        <button class="quiz-next" id="quiz-next" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+    <div class="quiz-result" id="quiz-result">
+      <div id="result-emoji" style="font-size:3rem;margin-bottom:0.5rem"></div>
+      <h3 id="result-title"></h3>
+      <div class="score-ring" id="score-ring"></div>
+      <p id="result-msg" style="color:var(--muted);font-size:0.9rem;max-width:400px;margin:0 auto 1.5rem;line-height:1.7"></p>
+      <button class="generate-btn" style="width:auto;padding:0.75rem 2rem" onclick="restartQuiz()">🔄 Try Again</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 6: TERMINAL DEMO -->
+<section id="terminal">
+  <div class="section-label">06 — HANDS ON</div>
+  <h2>Live Terminal Walkthrough</h2>
+  <p class="section-desc">Follow these exact commands in your GitHub Codespace. Click each step to see what it does.</p>
+
+  <div class="terminal reveal">
+    <div class="terminal-header">
+      <div class="builder-dots">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      </div>
+      <div class="builder-title">GitHub Codespace Terminal — Ubuntu</div>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <span class="t-info">▸ Click a step below to run it</span> <span class="t-cursor"></span>
+    </div>
+    <div class="terminal-step-btns">
+      <button class="step-btn" onclick="runStep(0)">1. Install Claude</button>
+      <button class="step-btn" onclick="runStep(1)">2. Create skill folder</button>
+      <button class="step-btn" onclick="runStep(2)">3. Write SKILL.md</button>
+      <button class="step-btn" onclick="runStep(3)">4. Launch Claude</button>
+      <button class="step-btn" onclick="runStep(4)">5. Use /slash command</button>
+      <button class="step-btn" onclick="runStep(5)">★ Auto-create a skill</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 7: DEPLOY -->
+<section id="deploy">
+  <div class="section-label">07 — DEPLOY THIS SITE</div>
+  <h2>Deploy to the Web</h2>
+  <p class="section-desc">Get this interactive guide live at a public URL so your students can access it from anywhere — completely free in under 5 minutes.</p>
+
+  <div class="deploy-track reveal">
+
+    <div class="deploy-step">
+      <div class="deploy-num n1">1</div>
+      <div class="deploy-content">
+        <h4>Create a GitHub Repository</h4>
+        <p>Go to <strong>github.com → New repository</strong>. Name it <code>ntu-agent-skills</code>. Set it to Public. Don't add README yet.</p>
+        <div class="code-block">
+          <button class="code-block-copy" onclick="copyCode(this, 'cd ~\ngit init ntu-agent-skills\ncd ntu-agent-skills')">copy</button>
+<span class="comment"># In your Codespace terminal:</span>
+<span class="cmd">cd ~
+git init ntu-agent-skills
+cd ntu-agent-skills</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num n2">2</div>
+      <div class="deploy-content">
+        <h4>Save this HTML file into the repo</h4>
+        <p>Download the <code>index.html</code> from this guide and place it in your repo folder, or create it directly in your Codespace.</p>
+        <div class="code-block">
+          <button class="code-block-copy" onclick="copyCode(this, 'curl -o index.html https://your-deploy-url/index.html\n# OR copy/paste the file manually')">copy</button>
+<span class="comment"># If you have the file locally:</span>
+<span class="cmd">ls index.html</span>
+<span class="t-out"># → index.html   ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num n3">3</div>
+      <div class="deploy-content">
+        <h4>Push to GitHub</h4>
+        <p>Commit and push your file to GitHub. Replace <span class="highlight">YOUR_USERNAME</span> with your GitHub username.</p>
+        <div class="code-block">
+          <button class="code-block-copy" onclick="copyCode(this, 'git add index.html\ngit commit -m \"Add NTU Agent Skills guide\"\ngit branch -M main\ngit remote add origin https://github.com/YOUR_USERNAME/ntu-agent-skills.git\ngit push -u origin main')">copy</button>
+<span class="cmd">git add index.html
+git commit -m <span class="highlight">"Add NTU Agent Skills guide"</span>
+git branch -M main
+git remote add origin https://github.com/<span class="highlight">YOUR_USERNAME</span>/ntu-agent-skills.git
+git push -u origin main</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num n4">4</div>
+      <div class="deploy-content">
+        <h4>Enable GitHub Pages</h4>
+        <p>Go to your repo on GitHub → <strong>Settings → Pages → Source: Deploy from branch → main → / (root) → Save</strong>. That's it!</p>
+        <div class="code-block">
+          <button class="code-block-copy" onclick="copyCode(this, '# No terminal needed — do this in the GitHub website:\n# Settings → Pages → Source: main / (root) → Save')">copy</button>
+<span class="comment"># GitHub will show you a green banner:</span>
+<span class="t-success">✓ Your site is live at:</span>
+<span class="highlight">https://YOUR_USERNAME.github.io/ntu-agent-skills/</span>
+<span class="comment"># Takes ~60 seconds to go live</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num n5">5</div>
+      <div class="deploy-content">
+        <h4>Share with students</h4>
+        <p>Copy the URL and share it in your class chat. Students open it in any browser — no login, no install, no cost. Works on phone too!</p>
+        <div class="code-block">
+          <button class="code-block-copy" onclick="copyCode(this, 'https://YOUR_USERNAME.github.io/ntu-agent-skills/')">copy</button>
+<span class="t-success">🎉 Share this link with students:</span>
+<span class="highlight">https://YOUR_USERNAME.github.io/ntu-agent-skills/</span>
+
+<span class="comment"># Optional: Use Vercel for faster CDN</span>
+<span class="cmd">npm i -g vercel
+vercel --prod</span>
+<span class="t-success">✓ Deployed: https://ntu-agent-skills.vercel.app</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bonus: Vercel alternative -->
+  <div style="margin-top:2rem;background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.5rem" class="reveal">
+    <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem">
+      <span style="font-size:1.3rem">⚡</span>
+      <h4 style="font-size:1rem">Alternative: One-click Netlify deploy (even easier)</h4>
+      <span class="tag free">FREE</span>
+    </div>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;line-height:1.6">Go to <strong>netlify.com → Add new site → Deploy manually</strong> — drag and drop your <code>index.html</code> file. Done. You get a live URL in 10 seconds with zero configuration.</p>
+    <div class="code-block" style="font-size:0.78rem">
+<span class="t-success">Netlify URL: https://random-name-12345.netlify.app</span>
+<span class="comment"># Or connect to GitHub for auto-deploy on every push</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built for <strong>NANYANG TECHNOLOGICAL UNIVERSITY</strong> · Singapore<br>
+  <span style="font-size:0.75rem;color:#4B5563;margin-top:0.4rem;display:block">All tools referenced are free for students · Claude.ai · GitHub Codespaces · agentskills.io</span>
+</footer>
+
+<script>
+// ── TAB TOGGLE ──
+function showTab(tab) {
+  document.querySelectorAll('.compare-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
+}
+
+// ── ANATOMY ACCORDION ──
+function toggleAnatomy(el) {
+  el.classList.toggle('open');
+}
+
+// ── SKILL BUILDER ──
+const templates = {
+  code: { name: 'code-reviewer', desc: 'Use when asked to review code, find bugs, or improve code quality', instructions: '1. Check for security vulnerabilities first\n2. Identify performance bottlenecks\n3. Suggest better variable and function names\n4. Flag missing error handling\n5. Keep feedback concise and actionable', trigger: 'auto' },
+  deploy: { name: 'deploy-app', desc: 'Use when deploying, releasing, or pushing to production', instructions: '1. Always run the full test suite before deploying\n2. Build the Docker image with --no-cache\n3. Tag with git commit hash\n4. Push to container registry\n5. Run smoke test after deploy\n6. Notify team in Slack', trigger: 'manual' },
+  report: { name: 'weekly-report', desc: 'Use when generating weekly reports, summaries, or data analysis', instructions: '1. Pull data from the last 7 days\n2. Highlight top 3 wins and top 3 issues\n3. Include a metrics table\n4. Write executive summary in 3 sentences\n5. Save as PDF in /reports folder', trigger: 'fork' },
+  essay: { name: 'essay-feedback', desc: 'Use when reviewing essays, academic writing, or long-form documents', instructions: '1. Check thesis statement clarity\n2. Evaluate argument structure and flow\n3. Flag unsupported claims\n4. Suggest stronger transitions\n5. Check citation format consistency\n6. Grade on a rubric scale of 1-10', trigger: 'auto' },
+  data: { name: 'data-analyst', desc: 'Use when analyzing CSV data, datasets, or generating charts', instructions: '1. Load data and show shape + dtypes\n2. Check for missing values and outliers\n3. Generate summary statistics\n4. Create relevant visualizations\n5. Write 3 key insights in plain English\n6. Save charts to /output folder', trigger: 'fork' }
+};
+
+function applyTemplate() {
+  const cat = document.getElementById('skill-category').value;
+  if (!cat) return;
+  const t = templates[cat];
+  document.getElementById('skill-name').value = t.name;
+  document.getElementById('skill-desc').value = t.desc;
+  document.getElementById('skill-instructions').value = t.instructions;
+  document.getElementById('skill-trigger').value = t.trigger;
+  generateSkill();
+}
+
+function updatePreview() {
+  const name = document.getElementById('skill-name').value || 'my-skill';
+  const desc = document.getElementById('skill-desc').value || 'Describe when Claude should use this skill';
+  const trigger = document.getElementById('skill-trigger').value;
+  const instructions = document.getElementById('skill-instructions').value || '# Add your instructions here\n1. Step one\n2. Step two';
+
+  let frontmatter = `---\nname: ${name}\ndescription: ${desc}`;
+  if (trigger === 'manual') frontmatter += `\ndisable-model-invocation: true`;
+  if (trigger === 'fork') frontmatter += `\ncontext: fork`;
+  frontmatter += `\n---`;
+
+  const output = frontmatter + '\n\n# ' + toTitle(name) + '\n\n' + instructions;
+
+  document.getElementById('skill-preview').innerHTML = formatCode(output);
+  document.getElementById('install-name').textContent = name;
+  document.getElementById('install-name2').textContent = name;
+}
+
+function toTitle(s) { return s.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); }
+
+function formatCode(code) {
+  return code
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/(---)/g,'<span style="color:#94A3B8">$1</span>')
+    .replace(/(name:|description:|disable-model-invocation:|context:)/g,'<span style="color:#7DD3FC">$1</span>')
+    .replace(/^(# .+)$/gm,'<span style="color:#FCD34D">$1</span>')
+    .replace(/^(\d+\..+)$/gm,'<span style="color:#E2E8F0">$1</span>');
+}
+
+function generateSkill() {
+  updatePreview();
+  document.getElementById('skill-preview').style.borderColor = 'var(--green)';
+  setTimeout(() => { document.getElementById('skill-preview').style.borderColor = 'var(--border)'; }, 800);
+}
+
+function copySkill() {
+  const text = document.getElementById('skill-preview').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── CHAT SIMULATION ──
+let skillMode = false;
+
+const scenarios = {
+  deploy: {
+    user: "Can you help me deploy my app?",
+    normal: "Sure! To deploy your app, you'll need to choose a platform. Common options include Heroku, AWS, Google Cloud, Vercel, or Netlify. Which platform are you targeting? Once you tell me more about your tech stack, I can walk you through the steps.",
+    skill: "🚀 **deploy-app skill loaded.**\n\nRunning pre-deploy checklist:\n✅ Test suite: running `npm test`...\n✅ Docker build: `docker build --no-cache -t app:abc1234 .`\n✅ Pushing to registry...\n✅ Rolling deploy initiated\n✅ Smoke test passed\n✅ Slack notification sent to #deployments\n\nDeploy complete. Tag: `app:abc1234`"
+  },
+  report: {
+    user: "Generate this week's report please",
+    normal: "I'd be happy to help generate a report! Could you share the data you want included? Also, what format would you like — bullet points, a table, a PDF? And what time period should it cover?",
+    skill: "📊 **weekly-report skill loaded.**\n\nPulling last 7 days from database...\n\n**TOP WINS:** User signups +18%, Response time -22ms, Deploy frequency 3x\n\n**TOP ISSUES:** Cart abandonment +5%, API timeout on /checkout, Mobile load time 4.2s\n\n**Metrics Table:** [Generated]\n\n**Executive Summary:** Strong growth week with 18% signup increase. One critical issue requires attention: checkout API timeouts affecting ~3% of transactions. Recommend hotfix prioritisation.\n\n📁 Saved to /reports/week-2026-03-11.pdf"
+  },
+  code: {
+    user: "Review my Python function please",
+    normal: "Of course! Please share the Python function and I'll take a look at it. I can check for bugs, style issues, and suggest improvements.",
+    skill: "💻 **code-reviewer skill loaded.**\n\n🔴 SECURITY: Line 14 — SQL query built with string concatenation. Use parameterised queries to prevent SQL injection.\n\n🟡 PERFORMANCE: Line 27 — calling `len(list)` inside a loop. Cache the length outside the loop.\n\n🟢 SUGGESTION: Variable `x` on line 8 → rename to `user_id` for clarity.\n\n⚠️ MISSING: No error handling for the database connection. Add try/except.\n\n**Overall score: 6/10** — Good structure, but the SQL issue is a critical security risk. Fix before merge."
+  },
+  essay: {
+    user: "Can you write an essay about AI?",
+    normal: "Sure! Here's a short essay about AI:\n\nArtificial Intelligence (AI) has transformed modern society in profound ways. From healthcare diagnostics to autonomous vehicles, AI systems are increasingly present in our daily lives...\n\n[Essay continues for ~400 more words...]",
+    skill: "✍️ **essay-feedback skill loaded.**\n\nI notice you asked me to *write* an essay — but as your essay-feedback skill, I'm better used to *improve* your drafts!\n\nIf you'd like me to write one, just say /disable essay-feedback first.\n\nOr share your draft and I'll give you:\n📋 Thesis statement analysis\n📊 Argument structure score (1-10)\n🔍 Unsupported claim check\n✏️ Transition improvement suggestions\n📚 Citation format review"
+  }
+};
+
+function toggleChatMode() {
+  skillMode = !skillMode;
+  const toggle = document.getElementById('chat-toggle');
+  const knob = document.getElementById('toggle-knob');
+  const label = document.getElementById('chat-mode-label');
+  if (skillMode) {
+    toggle.style.background = 'var(--green)';
+    knob.style.left = '22px';
+    label.textContent = 'Mode: 🧠 Agent Skills';
+    label.style.color = 'var(--green)';
+  } else {
+    toggle.style.background = 'var(--border)';
+    knob.style.left = '2px';
+    label.textContent = 'Mode: 💬 Normal Chat';
+    label.style.color = 'var(--muted)';
+  }
+}
+
+function runScenario(scenario) {
+  const s = scenarios[scenario];
+  const body = document.getElementById('chat-body');
+  body.innerHTML = '';
+
+  const msgs = [
+    { type: 'user', text: s.user },
+    { type: 'claude', text: skillMode ? s.skill : s.normal }
+  ];
+
+  msgs.forEach((msg, i) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = `chat-msg ${msg.type}`;
+      el.style.animationDelay = `${i * 0.3}s`;
+      el.innerHTML = `
+        <div class="chat-avatar ${msg.type}">${msg.type === 'claude' ? '🤖' : '👤'}</div>
+        <div class="chat-bubble">${msg.text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</div>
+      `;
+      body.appendChild(el);
+    }, i * 500);
+  });
+}
+
+// ── QUIZ ──
+const questions = [
+  {
+    q: "What is the REQUIRED file that every Agent Skill must have?",
+    opts: ["README.md", "SKILL.md", "config.json", "claude.yaml"],
+    ans: 1,
+    explain: "✅ Every skill needs a SKILL.md file in its folder. This contains the YAML frontmatter (name & description) and the markdown instructions Claude follows."
+  },
+  {
+    q: "How does Claude decide WHEN to automatically use a skill?",
+    opts: ["By the file size of SKILL.md", "By reading the 'description' field in frontmatter", "By the folder name only", "Claude always asks you which skill to use"],
+    ans: 1,
+    explain: "✅ The 'description' field is the key! Claude reads all available skill descriptions and decides which one matches your current task. Write a clear, specific description for reliable auto-triggering."
+  },
+  {
+    q: "Where should you put a skill to make it available in ALL your projects?",
+    opts: [".claude/skills/ in each project", "~/.claude/skills/ (home directory)", "~/Desktop/skills/", "/usr/local/skills/"],
+    ans: 1,
+    explain: "✅ Personal skills go in ~/.claude/skills/ — this is your home directory, so they're available across all projects. Project-specific skills go in .claude/skills/ inside a specific repo."
+  },
+  {
+    q: "What is the main advantage of putting code in the scripts/ folder of a skill?",
+    opts: ["Scripts run faster than instructions", "Only the script OUTPUT enters Claude's context, saving tokens", "Scripts are shared with teammates automatically", "Scripts override Claude's default behaviour"],
+    ans: 1,
+    explain: "✅ Efficiency! When Claude runs a script, only the output (e.g. 'Validation passed') enters the context window — not the entire script code. This keeps context usage lean and fast."
+  },
+  {
+    q: "Which FREE tool allows students to run Claude Code in a cloud terminal without any local installation?",
+    opts: ["Google Colab", "Replit", "GitHub Codespaces", "AWS Cloud9"],
+    ans: 2,
+    explain: "✅ GitHub Codespaces gives every student a free cloud Ubuntu terminal accessible directly in the browser. Students with GitHub Education get 120 core-hours/month free — perfect for this workshop!"
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function loadQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('q-num').textContent = currentQ + 1;
+  document.getElementById('quiz-bar').style.width = `${(currentQ / 5) * 100}%`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('quiz-next').style.display = 'none';
+  answered = false;
+
+  const opts = document.getElementById('quiz-options');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'quiz-option';
+    el.innerHTML = `<div class="quiz-opt-letter">${'ABCD'[i]}</div><span>${opt}</span>`;
+    el.onclick = () => answerQ(i, el);
+    opts.appendChild(el);
+  });
+}
+
+function answerQ(idx, el) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const allOpts = document.querySelectorAll('.quiz-option');
+  allOpts.forEach(o => o.classList.add('disabled'));
+
+  const fb = document.getElementById('quiz-feedback');
+  if (idx === q.ans) {
+    el.classList.add('correct');
+    score++;
+    document.getElementById('score').textContent = score;
+    fb.className = 'quiz-feedback right show';
+    fb.innerHTML = '🎉 ' + q.explain;
+  } else {
+    el.classList.add('wrong');
+    allOpts[q.ans].classList.add('correct');
+    fb.className = 'quiz-feedback wrong show';
+    fb.innerHTML = '❌ Not quite. ' + q.explain;
+  }
+  document.getElementById('quiz-next').style.display = 'block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= 5) { showResult(); return; }
+  loadQuestion();
+}
+
+function showResult() {
+  document.getElementById('quiz-main').style.display = 'none';
+  const r = document.getElementById('quiz-result');
+  r.style.display = 'block';
+  const pct = Math.round((score / 5) * 100);
+  const ring = document.getElementById('score-ring');
+  const emojis = ['😅','🙁','😐','😊','🤩','🏆'];
+  const titles = ['Keep trying!','Getting there...','Not bad!','Good job!','Excellent!','Perfect score!'];
+  const msgs = [
+    'Review the anatomy section and try again.',
+    'You\'re getting it! Go back to the comparison section.',
+    'Decent understanding. Review the SKILL.md anatomy.',
+    'Good grasp of the concepts! One more review should nail it.',
+    'You clearly understand Agent Skills well!',
+    'You\'re ready to teach Agent Skills yourself! 🎓'
+  ];
+  document.getElementById('result-emoji').textContent = emojis[score];
+  document.getElementById('result-title').textContent = titles[score];
+  ring.style.background = score >= 4 ? 'rgba(34,197,94,0.15)' : score >= 3 ? 'rgba(251,191,36,0.15)' : 'rgba(200,16,46,0.15)';
+  ring.style.border = `4px solid ${score >= 4 ? 'var(--green)' : score >= 3 ? 'var(--gold)' : 'var(--ntu-red)'}`;
+  ring.style.color = score >= 4 ? 'var(--green)' : score >= 3 ? 'var(--gold)' : 'var(--ntu-red)';
+  ring.textContent = `${score}/5`;
+  document.getElementById('result-msg').textContent = msgs[score];
+  document.getElementById('quiz-bar').style.width = '100%';
+}
+
+function restartQuiz() {
+  currentQ = 0; score = 0;
+  document.getElementById('score').textContent = '0';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-main').style.display = 'block';
+  loadQuestion();
+}
+
+// ── TERMINAL STEPS ──
+const steps = [
+  {
+    label: '$ Install Claude Code',
+    lines: [
+      { cls: 't-prompt', text: '$ ' }, { cls: 't-cmd', text: 'curl -fsSL https://claude.ai/install.sh | bash' },
+      { cls: 't-out', text: 'Downloading Claude Code...' },
+      { cls: 't-out', text: 'Installing to /usr/local/bin/claude' },
+      { cls: 't-success', text: '✓ Claude Code installed successfully!' },
+      { cls: 't-info', text: '  Version: 2.1.x | Node: 22.x' },
+    ]
+  },
+  {
+    label: '$ Create skill folder',
+    lines: [
+      { cls: 't-prompt', text: '$ ' }, { cls: 't-cmd', text: 'mkdir -p ~/.claude/skills/my-first-skill' },
+      { cls: 't-success', text: '✓ Created: ~/.claude/skills/my-first-skill/' },
+      { cls: 't-prompt', text: '$ ' }, { cls: 't-cmd', text: 'ls ~/.claude/skills/' },
+      { cls: 't-out', text: 'my-first-skill/' },
+    ]
+  },
+  {
+    label: '$ Write SKILL.md',
+    lines: [
+      { cls: 't-prompt', text: '$ ' }, { cls: 't-cmd', text: 'cat > ~/.claude/skills/my-first-skill/SKILL.md' },
+      { cls: 't-warn', text: '# Paste this content:' },
+      { cls: 't-out', text: '---' },
+      { cls: 't-info', text: 'name: my-first-skill' },
+      { cls: 't-info', text: 'description: Use when user asks to explain things simply' },
+      { cls: 't-out', text: '---' },
+      { cls: 't-out', text: '# Explain Skill' },
+      { cls: 't-out', text: 'Always explain like the user is 10 years old.' },
+      { cls: 't-out', text: 'Use fun analogies and simple words!' },
+      { cls: 't-warn', text: '(Ctrl+D to save)' },
+      { cls: 't-success', text: '✓ SKILL.md saved!' },
+    ]
+  },
+  {
+    label: '$ Launch Claude',
+    lines: [
+      { cls: 't-prompt', text: '$ ' }, { cls: 't-cmd', text: 'claude' },
+      { cls: 't-out', text: 'Loading skills...' },
+      { cls: 't-success', text: '✓ Loaded skill: my-first-skill' },
+      { cls: 't-info', text: '' },
+      { cls: 't-info', text: '  Welcome to Claude Code!' },
+      { cls: 't-out', text: '  Type your message or /help for commands.' },
+      { cls: 't-info', text: '' },
+      { cls: 't-warn', text: '  Skill mode: ACTIVE' },
+    ]
+  },
+  {
+    label: '$ Use /slash command',
+    lines: [
+      { cls: 't-prompt', text: '> ' }, { cls: 't-cmd', text: '/my-first-skill explain what recursion is' },
+      { cls: 't-out', text: '' },
+      { cls: 't-info', text: '🧠 Skill loaded: my-first-skill' },
+      { cls: 't-out', text: '' },
+      { cls: 't-out', text: "Imagine you're standing between two mirrors." },
+      { cls: 't-out', text: 'You see yourself repeated forever in both directions.' },
+      { cls: 't-out', text: "That's recursion — a function that calls itself," },
+      { cls: 't-out', text: 'getting smaller each time, until it reaches the end!' },
+    ]
+  },
+  {
+    label: '$ Auto-create a skill',
+    lines: [
+      { cls: 't-prompt', text: '> ' }, { cls: 't-cmd', text: '/create-skill "a skill for writing NTU assignment reports"' },
+      { cls: 't-info', text: '🤖 Generating skill...' },
+      { cls: 't-out', text: '' },
+      { cls: 't-out', text: 'A few quick questions:' },
+      { cls: 't-info', text: '  1. What citation style? (APA/MLA/Chicago)' },
+      { cls: 't-info', text: '  2. What word count range?' },
+      { cls: 't-info', text: '  3. Should I include a rubric?' },
+      { cls: 't-out', text: '' },
+      { cls: 't-success', text: '✓ Skill created: ~/.claude/skills/ntu-report-writer/SKILL.md' },
+      { cls: 't-success', text: '✓ Ready to use! Type /ntu-report-writer' },
+    ]
+  }
+];
+
+function runStep(idx) {
+  document.querySelectorAll('.step-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  const body = document.getElementById('terminal-body');
+  body.innerHTML = '';
+  steps[idx].lines.forEach((line, i) => {
+    setTimeout(() => {
+      if (line.text === '' && i > 0) { body.appendChild(document.createElement('br')); return; }
+      const span = document.createElement('span');
+      span.className = line.cls;
+      span.textContent = line.text;
+      body.appendChild(span);
+      body.appendChild(document.createElement('br'));
+      body.scrollTop = body.scrollHeight;
+    }, i * 80);
+  });
+  setTimeout(() => {
+    const cursor = document.createElement('span');
+    cursor.className = 't-cursor';
+    body.appendChild(cursor);
+  }, steps[idx].lines.length * 80 + 100);
+}
+
+// ── CODE COPY ──
+function copyCode(btn, code) {
+  const text = code || btn.closest('.code-block').innerText.replace('copy','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ done'; 
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── INIT ──
+loadQuestion();
+updatePreview();
+</script>
+</body>
+</html>
