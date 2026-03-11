@@ -520,6 +520,104 @@
   }
   .tag.free { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
   .tag.new { background: rgba(59,130,246,0.12); color: var(--accent); border: 1px solid rgba(59,130,246,0.3); }
+
+  /* ── DS DEMO SECTION ── */
+  --bg3: #141D33; --border2: #243058; --pink: #EC4899; --teal: #14B8A6;
+
+  /* Folder tree */
+  .tree-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:0.75rem; overflow:hidden; margin-bottom:1.25rem; }
+  .tree-header { background:var(--bg3,#141D33); padding:0.6rem 1rem; display:flex; align-items:center; gap:0.6rem; border-bottom:1px solid var(--border); }
+  .tree-dots { display:flex; gap:0.3rem; }
+  .td { width:9px; height:9px; border-radius:50%; }
+  .td.r{background:#FF5F57;} .td.y{background:#FFBD2E;} .td.g{background:#28CA41;}
+  .tree-fname { font-family:var(--mono); font-size:0.7rem; color:var(--muted); }
+  .tree-body { padding:1rem; font-family:var(--mono); font-size:0.78rem; line-height:2.1; }
+  .tree-item { display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.25rem 0.5rem; border-radius:0.35rem; transition:all 0.15s; }
+  .tree-item:hover { background:rgba(59,130,246,0.08); }
+  .tree-item.ds-active { background:rgba(59,130,246,0.12); }
+  .tree-tbadge { font-size:0.58rem; font-family:var(--mono); font-weight:700; padding:0.1rem 0.4rem; border-radius:2rem; flex-shrink:0; }
+  .tree-item.skill .tname { color:#86EFAC; }
+  .tree-item.pyscript .tname { color:#FCD34D; }
+  .tree-item.ref .tname { color:#93C5FD; }
+  .tree-item.asset .tname { color:#F9A8D4; }
+  .tree-item.dir .tname { color:var(--purple); }
+  /* File viewer */
+  .file-viewer { background:var(--bg2); border:2px solid var(--border); border-radius:0.75rem; overflow:hidden; margin-bottom:1.25rem; transition:border-color 0.2s; }
+  .fv-header { background:var(--bg3,#141D33); padding:0.65rem 1rem; display:flex; align-items:center; gap:0.6rem; border-bottom:1px solid var(--border); }
+  .fv-dot { width:8px; height:8px; border-radius:50%; }
+  .fv-name { font-family:var(--mono); font-size:0.72rem; }
+  .fv-close { margin-left:auto; font-size:0.75rem; color:var(--muted); cursor:pointer; }
+  .fv-content { padding:1rem; font-family:var(--mono); font-size:0.74rem; line-height:1.85; overflow-x:auto; min-height:160px; white-space:pre-wrap; max-height:380px; overflow-y:auto; }
+  .fv-explain { margin:0 0 1.25rem; background:var(--card); border:1px solid var(--border); border-radius:0.6rem; padding:0.9rem 1rem; font-size:0.82rem; line-height:1.7; display:none; }
+  .fv-explain.show { display:block; animation:ds-fadeup 0.3s ease; }
+  /* Syntax */
+  .sy{color:#94A3B8;} .sk{color:#7DD3FC;} .sv{color:#86EFAC;} .sc2{color:#6B7280;} .sh2{color:#FCD34D;} .st2{color:#E2E8F0;} .so{color:#F97316;} .sp{color:#A78BFA;} .sn{color:#FCA5A5;} .sf{color:#F9A8D4;}
+  /* Flow cards */
+  .flow-cards { display:flex; flex-direction:column; gap:0.75rem; }
+  .flow-card { background:var(--bg2); border:1px solid var(--border); border-radius:0.75rem; padding:1rem; display:flex; gap:0.75rem; align-items:flex-start; }
+  .flow-card-icon { font-size:1.5rem; flex-shrink:0; }
+  .flow-card-title { font-weight:700; font-size:0.88rem; margin-bottom:0.2rem; }
+  .flow-card-desc { font-size:0.8rem; color:var(--muted); line-height:1.6; }
+  .flow-arrow { text-align:center; font-size:1.2rem; color:var(--border); margin:0.1rem 0; }
+  /* Sim */
+  .sim-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:0.75rem; overflow:hidden; }
+  .sim-tabs { display:flex; border-bottom:1px solid var(--border); background:var(--bg3,#141D33); overflow-x:auto; scrollbar-width:none; }
+  .sim-tabs::-webkit-scrollbar{display:none;}
+  .sim-tab { padding:0.65rem 1rem; font-family:var(--mono); font-size:0.7rem; color:var(--muted); white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .sim-tab.act { color:var(--accent); border-bottom-color:var(--accent); }
+  .sim-pane { display:none; padding:1.25rem; }
+  .sim-pane.act { display:block; animation:ds-fadeup 0.3s ease; }
+  /* Dataset table */
+  .ds-table { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:0.68rem; overflow-x:auto; display:block; }
+  .ds-table th { background:var(--navy); color:white; padding:0.4rem 0.6rem; text-align:left; white-space:nowrap; }
+  .ds-table td { padding:0.35rem 0.6rem; border-bottom:1px solid var(--border); color:var(--muted); white-space:nowrap; }
+  .ds-table tr:hover td { background:rgba(59,130,246,0.05); color:var(--text); }
+  .ds-table td.dnum { color:var(--gold); } .ds-table td.dgood { color:var(--green); } .ds-table td.dwarn { color:var(--orange); } .ds-table td.derr { color:#F87171; }
+  /* Terminal output */
+  .ds-terminal { background:#0A0F1C; border-radius:0.5rem; padding:1rem; font-family:var(--mono); font-size:0.73rem; line-height:1.9; max-height:360px; overflow-y:auto; }
+  .to-p{color:var(--green);} .to-c{color:#E2E8F0;} .to-o{color:var(--muted);} .to-s{color:var(--green);} .to-w{color:var(--gold);} .to-i{color:var(--accent);} .to-e{color:#F87171;} .to-sec{color:var(--purple);font-weight:700;} .to-hl{color:var(--gold);}
+  /* Stats */
+  .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; margin:0.75rem 0; }
+  .stat-card { background:var(--bg3,#141D33); border:1px solid var(--border); border-radius:0.5rem; padding:0.7rem 0.85rem; }
+  .stat-label { font-size:0.68rem; color:var(--muted); font-family:var(--mono); margin-bottom:0.2rem; }
+  .stat-val { font-size:1.15rem; font-weight:800; font-family:var(--mono); }
+  /* Claude response bubble */
+  .claude-resp { background:var(--bg3,#141D33); border:1px solid var(--border); border-radius:0.75rem; padding:1rem; margin-top:0.75rem; }
+  .claude-hdr { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem; }
+  .claude-av { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--purple)); display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
+  .claude-skill-badge { margin-left:auto; font-family:var(--mono); font-size:0.6rem; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.3); color:var(--green); padding:0.15rem 0.5rem; border-radius:2rem; }
+  .claude-txt { font-size:0.83rem; line-height:1.75; }
+  .finding { display:flex; gap:0.5rem; align-items:flex-start; padding:0.4rem 0; border-bottom:1px solid var(--border); }
+  .finding:last-child { border-bottom:none; }
+  .fdot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:0.35rem; }
+  /* Report */
+  .report-preview { background:white; color:#1a202c; border-radius:0.5rem; padding:1.25rem; font-family:var(--sans); font-size:0.8rem; line-height:1.7; }
+  .report-title { font-size:1rem; font-weight:800; color:var(--navy); margin-bottom:0.3rem; border-bottom:2px solid #C8102E; padding-bottom:0.4rem; }
+  .report-meta { font-size:0.7rem; color:#64748B; margin-bottom:1rem; }
+  .report-h2 { font-size:0.82rem; font-weight:700; color:var(--navy); margin:0.8rem 0 0.3rem; }
+  .report-table { width:100%; border-collapse:collapse; font-size:0.72rem; margin-bottom:0.75rem; }
+  .report-table th { background:#00205B; color:white; padding:0.3rem 0.5rem; text-align:left; }
+  .report-table td { padding:0.3rem 0.5rem; border-bottom:1px solid #E2E8F0; }
+  .report-table tr:nth-child(even) td { background:#F8FAFC; }
+  .rec { display:flex; gap:0.5rem; font-size:0.75rem; padding:0.2rem 0; }
+  .rec-num { color:#C8102E; font-weight:700; flex-shrink:0; }
+  /* Install steps */
+  .install-step { display:grid; grid-template-columns:2.2rem 1fr; gap:0.75rem; align-items:flex-start; padding:0.75rem 0; border-bottom:1px solid var(--border); }
+  .install-step:last-child { border-bottom:none; }
+  .i-num { width:2rem; height:2rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.78rem; font-weight:700; }
+  .i-title { font-size:0.85rem; font-weight:700; margin-bottom:0.2rem; }
+  .i-desc { font-size:0.78rem; color:var(--muted); margin-bottom:0.4rem; line-height:1.5; }
+  .i-code { background:#0A0F1C; border-radius:0.4rem; padding:0.6rem 0.75rem; font-family:var(--mono); font-size:0.72rem; color:#86EFAC; line-height:1.85; overflow-x:auto; }
+  .copy-mini { display:inline-flex; align-items:center; gap:0.3rem; background:var(--bg2); border:1px solid var(--border); color:var(--muted); font-family:var(--mono); font-size:0.6rem; padding:0.2rem 0.5rem; border-radius:0.25rem; cursor:pointer; transition:all 0.15s; margin-top:0.4rem; }
+  .copy-mini:hover { border-color:var(--green); color:var(--green); }
+  /* Callout */
+  .ds-callout { border-radius:0.5rem; padding:0.75rem 1rem; margin:0.75rem 0; font-size:0.8rem; line-height:1.6; display:flex; gap:0.6rem; }
+  .ds-callout.info { background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.2); color:#93C5FD; }
+  .ds-callout.success { background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2); color:#86EFAC; }
+  .ds-callout.gold { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); color:#FDE68A; }
+  @keyframes ds-fadeup { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+  /* DS section sub-labels */
+  .ds-sub-label { font-family:var(--mono); font-size:0.62rem; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.5rem; }
 </style>
 </head>
 <body>
@@ -532,6 +630,7 @@
   <div class="nav-links">
     <a href="#compare">Compare</a>
     <a href="#builder">Build Skill</a>
+    <a href="#ds-demo">DS Demo</a>
     <a href="#quiz">Quiz</a>
 
   </div>
@@ -887,6 +986,253 @@ description: Use when user asks
 </section>
 
 
+
+
+
+<div class="divider"></div>
+
+<!-- SECTION 7: DS DEMO -->
+<section id="ds-demo">
+  <div class="section-label">07 — DATA SCIENCE DEMO</div>
+  <h2>Real Skill: <span style="color:var(--accent)">EDA Analyst</span></h2>
+  <p class="section-desc">A complete Agent Skill for DS students — all 4 components working together on a real student grades dataset. Click each file to explore.</p>
+
+  <!-- 07a FOLDER TREE -->
+  <div class="reveal" style="margin-bottom:2rem">
+    <div class="ds-sub-label">07A — SKILL FOLDER STRUCTURE</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Click any file below to see its contents and understand what it does.</p>
+
+    <div class="tree-wrap">
+      <div class="tree-header">
+        <div class="tree-dots"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+        <div class="tree-fname">~/.claude/skills/eda-analyst/</div>
+      </div>
+      <div class="tree-body">
+        <div class="tree-item dir" onclick="dsShowFile('root',this)">
+          <span>📁</span><span class="tname" style="color:var(--purple)">eda-analyst/</span>
+          <span class="tree-tbadge" style="background:rgba(167,139,250,0.15);color:var(--purple)">SKILL ROOT</span>
+        </div>
+        <div class="tree-item skill ds-active" onclick="dsShowFile('skillmd',this)" style="padding-left:1.5rem">
+          <span>├── 📄</span><span class="tname">SKILL.md</span>
+          <span class="tree-tbadge" style="background:rgba(134,239,172,0.15);color:var(--green)">REQUIRED</span>
+        </div>
+        <div class="tree-item dir" onclick="dsShowFile('scripts-dir',this)" style="padding-left:1.5rem">
+          <span>├── 📁</span><span class="tname" style="color:var(--purple)">scripts/</span>
+        </div>
+        <div class="tree-item pyscript" onclick="dsShowFile('analyze',this)" style="padding-left:2.8rem">
+          <span>│ └── 🐍</span><span class="tname">analyze.py</span>
+          <span class="tree-tbadge" style="background:rgba(251,191,36,0.15);color:var(--gold)">RUNS AUTO</span>
+        </div>
+        <div class="tree-item dir" onclick="dsShowFile('refs-dir',this)" style="padding-left:1.5rem">
+          <span>├── 📁</span><span class="tname" style="color:var(--purple)">references/</span>
+        </div>
+        <div class="tree-item ref" onclick="dsShowFile('ds-checklist',this)" style="padding-left:2.8rem">
+          <span>│ └── 📋</span><span class="tname">ds-checklist.md</span>
+          <span class="tree-tbadge" style="background:rgba(147,197,253,0.15);color:#93C5FD">ON DEMAND</span>
+        </div>
+        <div class="tree-item dir" onclick="dsShowFile('assets-dir',this)" style="padding-left:1.5rem">
+          <span>└── 📁</span><span class="tname" style="color:var(--purple)">assets/</span>
+        </div>
+        <div class="tree-item asset" onclick="dsShowFile('template',this)" style="padding-left:2.8rem">
+          <span>&nbsp; └── 📝</span><span class="tname">report-template.md</span>
+          <span class="tree-tbadge" style="background:rgba(249,168,212,0.15);color:#EC4899">TEMPLATE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-viewer" id="ds-file-viewer">
+      <div class="fv-header">
+        <div class="fv-dot" id="ds-fv-dot" style="background:var(--green)"></div>
+        <span class="fv-name" id="ds-fv-name" style="font-family:var(--mono);font-size:0.7rem">SKILL.md</span>
+        <div class="fv-close" onclick="dsHideFile()">✕</div>
+      </div>
+      <div class="fv-content" id="ds-fv-content"><span style="color:var(--muted)">← Click any file in the tree to view its contents</span></div>
+    </div>
+    <div class="fv-explain" id="ds-fv-explain">
+      <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.35rem" id="ds-fe-title"></div>
+      <div style="color:var(--muted);font-size:0.82rem;line-height:1.7" id="ds-fe-body"></div>
+      <div style="color:var(--gold);font-family:var(--mono);font-size:0.78rem;margin-top:0.5rem" id="ds-fe-hint"></div>
+    </div>
+  </div>
+
+  <!-- 07b HOW THEY CONNECT -->
+  <div class="reveal" style="margin-bottom:2rem">
+    <div class="ds-sub-label">07B — HOW THE 4 FILES WORK TOGETHER</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">When you say "analyse my dataset", here's the chain reaction — in order.</p>
+    <div class="flow-cards">
+      <div class="flow-card">
+        <div class="flow-card-icon">📄</div>
+        <div><div class="flow-card-title" style="color:var(--green)">1. SKILL.md triggers automatically</div><div class="flow-card-desc">Claude reads your message and matches it to the <code style="font-family:var(--mono);font-size:0.8em;background:rgba(255,255,255,0.06);padding:0.1rem 0.3rem;border-radius:3px">description</code> field. The skill activates — no slash command needed.</div></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-card-icon">🐍</div>
+        <div><div class="flow-card-title" style="color:var(--gold)">2. scripts/analyze.py runs on your CSV</div><div class="flow-card-desc">Python script executes on your dataset. Only the <strong>output</strong> (stats, missing values, correlations) enters the conversation — not the 40 lines of code. Saves tokens.</div></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-card-icon">📋</div>
+        <div><div class="flow-card-title" style="color:#93C5FD">3. references/ds-checklist.md loaded</div><div class="flow-card-desc">Claude reads your team's DS quality checklist — class imbalance thresholds, leakage rules, outlier guidelines. Loaded on-demand only. Zero token waste when not needed.</div></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-card-icon">📝</div>
+        <div><div class="flow-card-title" style="color:#EC4899">4. assets/report-template.md filled in</div><div class="flow-card-desc">Claude fills the template with actual findings. Same professional structure every time — whether it's your dataset, a teammate's, or a Kaggle CSV.</div></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card" style="border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.04)">
+        <div class="flow-card-icon">✅</div>
+        <div><div class="flow-card-title" style="color:var(--green)">Result: Complete EDA report in seconds</div><div class="flow-card-desc">Structured, professional, consistent — and zero repeated instructions from you. The skill remembers everything.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07c LIVE SIMULATION -->
+  <div class="reveal" style="margin-bottom:2rem">
+    <div class="ds-sub-label">07C — LIVE DEMO WITH STUDENT GRADES DATASET</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Follow each tab to see the full skill in action on a real NTU-style dataset.</p>
+    <div class="sim-wrap">
+      <div class="sim-tabs">
+        <div class="sim-tab act" onclick="dsShowSim('dataset',this)">📊 Dataset (200 rows)</div>
+        <div class="sim-tab" onclick="dsShowSim('script-run',this)">🐍 Script Output</div>
+        <div class="sim-tab" onclick="dsShowSim('claude-out',this)">🤖 Claude Analysis</div>
+        <div class="sim-tab" onclick="dsShowSim('report',this)">📄 Final Report</div>
+      </div>
+
+      <!-- TAB 1: DATASET -->
+      <div class="sim-pane act" id="ds-pane-dataset">
+        <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);margin-bottom:0.75rem">📁 student_grades.csv — 200 rows × 8 columns (embedded)</div>
+        <div style="overflow-x:auto">
+          <table class="ds-table" id="ds-dataset-table"></table>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);margin-top:0.5rem">Showing first 12 rows · 200 total generated</div>
+        <div class="ds-callout info" style="margin-top:0.75rem">
+          <span>💡</span> This is a realistic NTU DS assignment dataset generated and embedded in this page. The skill analyses this automatically — no prompting needed.
+        </div>
+      </div>
+
+      <!-- TAB 2: SCRIPT OUTPUT -->
+      <div class="sim-pane" id="ds-pane-script-run">
+        <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);margin-bottom:0.5rem">🐍 scripts/analyze.py — output only (script code never enters Claude's context)</div>
+        <div class="ds-terminal" id="ds-terminal"></div>
+        <button onclick="dsRunTerminal()" style="margin-top:0.75rem;background:var(--accent);color:white;border:none;border-radius:0.4rem;padding:0.5rem 1.1rem;font-family:var(--mono);font-size:0.72rem;cursor:pointer;font-weight:700">▶ Run Script</button>
+      </div>
+
+      <!-- TAB 3: CLAUDE ANALYSIS -->
+      <div class="sim-pane" id="ds-pane-claude-out">
+        <div class="claude-resp">
+          <div class="claude-hdr">
+            <div class="claude-av">🤖</div>
+            <div><div style="font-size:0.78rem;font-weight:700">Claude</div><div style="font-size:0.65rem;color:var(--muted)">using eda-analyst skill</div></div>
+            <div class="claude-skill-badge">✓ skill active</div>
+          </div>
+          <div class="claude-txt">
+            I've run <code style="font-family:var(--mono);font-size:0.82em;background:rgba(255,255,255,0.06);padding:0.1rem 0.3rem;border-radius:3px">analyze.py</code> on <strong style="color:var(--gold)">student_grades.csv</strong> and checked it against the DS Quality Checklist. Here are my findings:<br><br>
+            <strong style="color:var(--gold)">📊 Dataset Overview</strong>
+            <div class="stats-grid">
+              <div class="stat-card"><div class="stat-label">ROWS</div><div class="stat-val" style="color:var(--accent)">200</div></div>
+              <div class="stat-card"><div class="stat-label">FEATURES</div><div class="stat-val" style="color:var(--purple)">7</div></div>
+              <div class="stat-card"><div class="stat-label">MISSING</div><div class="stat-val" style="color:var(--orange)">3.0%</div></div>
+              <div class="stat-card"><div class="stat-label">TARGET</div><div class="stat-val" style="color:var(--green);font-size:0.85rem">final_grade</div></div>
+            </div>
+            <br><strong style="color:var(--gold)">🔍 Key Findings</strong>
+            <div class="finding"><div class="fdot" style="background:var(--orange)"></div><span><strong>Class Imbalance:</strong> Only 8% of students scored F — consider SMOTE or class_weight='balanced' before training your classifier.</span></div>
+            <div class="finding"><div class="fdot" style="background:var(--orange)"></div><span><strong>Missing Values:</strong> <code style="font-family:var(--mono);font-size:0.82em;background:rgba(255,255,255,0.06);padding:0 0.3rem;border-radius:3px">sleep_hrs</code> has 6 missing rows (3%). Impute with median — distribution is right-skewed.</span></div>
+            <div class="finding"><div class="fdot" style="background:var(--green)"></div><span><strong>No Data Leakage:</strong> All features are pre-exam metrics. Safe to use as-is for your model.</span></div>
+            <div class="finding"><div class="fdot" style="background:var(--accent)"></div><span><strong>Top Predictor:</strong> <code style="font-family:var(--mono);font-size:0.82em;background:rgba(255,255,255,0.06);padding:0 0.3rem;border-radius:3px">prev_gpa</code> has correlation 0.87 with final_grade — strongest signal in your dataset.</span></div>
+            <div class="finding"><div class="fdot" style="background:var(--gold)"></div><span><strong>Outliers:</strong> 2 students with study_hrs &gt; 12 — verify these are not data entry errors before modelling.</span></div>
+            <br><em style="color:var(--muted);font-size:0.8rem">Full report generated using assets/report-template.md ↓</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: REPORT -->
+      <div class="sim-pane" id="ds-pane-report">
+        <div class="report-preview">
+          <div class="report-title">EDA Report — student_grades.csv</div>
+          <div class="report-meta">Generated by eda-analyst skill · NTU DS Team · March 2026</div>
+          <div class="report-h2">1. Dataset Summary</div>
+          <table class="report-table">
+            <tr><th>Property</th><th>Value</th></tr>
+            <tr><td>Rows</td><td>200</td></tr>
+            <tr><td>Features</td><td>7 inputs + 1 categorical target</td></tr>
+            <tr><td>Missing values</td><td>6 rows (3.0%) in sleep_hrs</td></tr>
+            <tr><td>Duplicates</td><td>0</td></tr>
+            <tr><td>Target distribution</td><td>A: 28%, B: 41%, C: 23%, F: 8%</td></tr>
+          </table>
+          <div class="report-h2">2. Key Feature Statistics</div>
+          <table class="report-table">
+            <tr><th>Feature</th><th>Mean</th><th>Std</th><th>Skew</th><th>Outliers</th></tr>
+            <tr><td>study_hrs</td><td>4.82</td><td>1.91</td><td>0.42</td><td>2</td></tr>
+            <tr><td>attendance</td><td>81%</td><td>14%</td><td>−0.31</td><td>0</td></tr>
+            <tr><td>prev_gpa</td><td>3.12</td><td>0.58</td><td>−0.08</td><td>0</td></tr>
+            <tr><td>sleep_hrs</td><td>6.31</td><td>1.08</td><td>0.71</td><td>3</td></tr>
+          </table>
+          <div class="report-h2">3. Recommendations</div>
+          <div class="rec"><div class="rec-num">R1</div><div>Handle class imbalance (8% F-grade) — use SMOTE or adjust class_weight='balanced' in sklearn</div></div>
+          <div class="rec"><div class="rec-num">R2</div><div>Impute sleep_hrs missing values with column median (right-skewed distribution)</div></div>
+          <div class="rec"><div class="rec-num">R3</div><div>Investigate 2 students with study_hrs &gt; 12 before modelling — potential data entry errors</div></div>
+          <div class="rec"><div class="rec-num">R4</div><div>Scale all numeric features before SVM/KNN — different units and ranges across columns</div></div>
+          <div class="rec"><div class="rec-num">R5</div><div>prev_gpa is strongest predictor (r=0.87) — must include in all models, start with LogReg baseline</div></div>
+          <div style="font-size:0.68rem;color:#94A3B8;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #E2E8F0">✓ Follows NTU DS Team standard · Auto-generated by eda-analyst Agent Skill</div>
+        </div>
+        <div class="ds-callout success">
+          <span>✅</span> This exact same structure is generated every time — for any CSV — because of assets/report-template.md
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07d INSTALL STEPS -->
+  <div class="reveal">
+    <div class="ds-sub-label">07D — BUILD THIS SKILL IN YOUR CODESPACE</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">Copy these commands into your GitHub Codespace terminal. ~3 minutes total.</p>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div class="install-step">
+        <div class="i-num" style="background:var(--accent);color:white">1</div>
+        <div><div class="i-title">Create all 4 folders at once</div><div class="i-desc">One command makes the full skill structure</div>
+          <div class="i-code">mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}</div>
+          <button class="copy-mini" onclick="dsCopy(this,'mkdir -p ~/.claude/skills/eda-analyst/{scripts,references,assets}')">📋 Copy</button>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num" style="background:var(--green);color:#000">2</div>
+        <div><div class="i-title">Create SKILL.md</div><div class="i-desc">The trigger file — Claude reads this to know when and how to use the skill</div>
+          <div class="i-code">nano ~/.claude/skills/eda-analyst/SKILL.md<span style="color:#6B7280">
+# Paste the SKILL.md content from the file tree above
+# Ctrl+O → Enter → Ctrl+X to save</span></div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num" style="background:var(--gold);color:#000">3</div>
+        <div><div class="i-title">Create scripts/analyze.py</div><div class="i-desc">Python script Claude runs automatically on your CSV</div>
+          <div class="i-code">nano ~/.claude/skills/eda-analyst/scripts/analyze.py<span style="color:#6B7280">
+# Paste the analyze.py content from the file tree above</span></div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num" style="background:var(--purple);color:white">4</div>
+        <div><div class="i-title">Add references/ and assets/ files</div><div class="i-desc">Copy content from the file tree above for each</div>
+          <div class="i-code">nano ~/.claude/skills/eda-analyst/references/ds-checklist.md
+nano ~/.claude/skills/eda-analyst/assets/report-template.md</div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num" style="background:var(--red);color:white">5</div>
+        <div><div class="i-title">Launch Claude and test it!</div><div class="i-desc">Claude will auto-detect your new eda-analyst skill on startup</div>
+          <div class="i-code">claude
+<span style="color:#6B7280"># Then type:</span>
+Please analyse my dataset: student_grades.csv</div>
+          <button class="copy-mini" onclick="dsCopy(this,'claude')">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="ds-callout gold">
+      <span>⭐</span>
+      <span><strong>Share with your project team:</strong> Move the skill to <code style="font-family:var(--mono);font-size:0.85em">.claude/skills/eda-analyst/</code> in your repo and commit it. Every teammate gets the same EDA behaviour automatically.</span>
+    </div>
+  </div>
+</section>
 
 <footer>
   Built for <strong>NANYANG TECHNOLOGICAL UNIVERSITY</strong> · Singapore<br>
@@ -1275,6 +1621,320 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── DS DEMO: EMBEDDED DATASET ──
+const dsData = (function() {
+  const grades = ['A+','A','A','A','B+','B','B','B','B','C+','C','C','F','F'];
+  const stress = ['Low','Low','Medium','Medium','Medium','High','High','Very High'];
+  const rows = [];
+  const rng = (min,max,dec=1) => +(Math.random()*(max-min)+min).toFixed(dec);
+  for(let i=1;i<=200;i++){
+    const g = Math.random();
+    let grade, gpa, study, att, asgn, sleep, st;
+    if(g>0.72){grade='A';gpa=rng(3.5,4.0);study=rng(6,10);att=rng(88,100,0);asgn=rng(90,100,0);sleep=rng(7,8.5);st='Low';}
+    else if(g>0.44){grade='B';gpa=rng(2.8,3.5);study=rng(4,7);att=rng(75,90,0);asgn=rng(78,92,0);sleep=rng(6,7.5);st='Medium';}
+    else if(g>0.20){grade='C';gpa=rng(2.0,2.8);study=rng(2,5);att=rng(60,78,0);asgn=rng(65,80,0);sleep=rng(5.5,7);st='High';}
+    else{grade='F';gpa=rng(1.0,2.0);study=rng(0.5,3);att=rng(40,62,0);asgn=rng(50,67,0);sleep=rng(4,6);st='Very High';}
+    if(Math.random()<0.03) sleep = null;
+    rows.push({id:'S'+String(i).padStart(3,'0'),study,att,gpa,asgn,sleep,stress:st,grade});
+  }
+  return rows;
+})();
+
+function dsRenderTable() {
+  const t = document.getElementById('ds-dataset-table');
+  if(!t) return;
+  const cols = ['student_id','study_hrs','attendance','prev_gpa','assignments','sleep_hrs','stress','final_grade'];
+  let h = '<tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+  dsData.slice(0,12).forEach(r => {
+    const gc = r.grade==='F'?'derr':r.grade.startsWith('A')?'dgood':r.grade==='C'?'dwarn':'';
+    const ac = r.att>=85?'dgood':r.att<65?'derr':'dwarn';
+    h += `<tr>
+      <td class="dnum">${r.id}</td>
+      <td class="dnum">${r.study}</td>
+      <td class="${ac}">${r.att}%</td>
+      <td class="dnum">${r.gpa}</td>
+      <td class="dnum">${r.asgn}%</td>
+      <td class="${r.sleep===null?'dwarn':'dnum'}">${r.sleep===null?'—':r.sleep}</td>
+      <td class="${r.stress==='Low'?'dgood':r.stress==='Very High'?'derr':'dwarn'}">${r.stress}</td>
+      <td class="${gc}">${r.grade}</td>
+    </tr>`;
+  });
+  t.innerHTML = h;
+}
+
+// ── DS DEMO: FILE VIEWER ──
+const dsFiles = {
+  skillmd:{ name:'SKILL.md', dot:'#22C55E',
+    html:`<span class="sy">---</span>
+<span class="sk">name:</span> <span class="sv">eda-analyst</span>
+<span class="sk">description:</span> <span class="sv">Use when user asks to analyse a dataset,</span>
+  <span class="sv">explore data, do EDA, understand a CSV,</span>
+  <span class="sv">check data quality, or prepare data for ML.</span>
+  <span class="sv">Also triggers for "what does my data look like?"</span>
+<span class="sk">context:</span> <span class="sv">fork</span>
+<span class="sy">---</span>
+
+<span class="sh2"># EDA Analyst Skill</span>
+
+<span class="sh2">## When this skill runs, always:</span>
+
+<span class="st2">1. Run</span> <span class="sv">\`scripts/analyze.py\`</span> <span class="st2">on the provided dataset</span>
+<span class="st2">2. Load</span> <span class="sv">\`references/ds-checklist.md\`</span> <span class="st2">to guide analysis</span>
+<span class="st2">3. Use</span> <span class="sv">\`assets/report-template.md\`</span> <span class="st2">for output format</span>
+<span class="st2">4. Always flag: missing values, class imbalance,</span>
+   <span class="st2">data leakage risks, outliers, and skewness</span>
+<span class="st2">5. Give at least 3 actionable recommendations</span>
+<span class="st2">6. End with a suggested first model to try</span>
+
+<span class="sh2">## Tone</span>
+<span class="st2">Technical but friendly — explain the WHY</span>
+<span class="st2">behind each finding. Students need to learn.</span>`,
+    title:'📄 SKILL.md — The Trigger & Instructions',
+    body:'This is the only required file. The frontmatter (between ---) tells Claude WHEN to activate. The body tells Claude HOW to behave. context: fork means the skill runs as a subagent — keeping your main conversation clean.',
+    hint:'💡 The description field is what Claude reads to decide whether to activate. Make it specific and detailed.'
+  },
+  analyze:{ name:'scripts/analyze.py', dot:'#FBBF24',
+    html:`<span class="sp">import</span> <span class="st2">pandas</span> <span class="sp">as</span> <span class="st2">pd</span>
+<span class="sp">import</span> <span class="st2">numpy</span> <span class="sp">as</span> <span class="st2">np</span>
+<span class="sp">import</span> <span class="st2">sys</span>
+<span class="sp">from</span> <span class="st2">scipy</span> <span class="sp">import</span> <span class="st2">stats</span>
+
+<span class="sc2"># Load dataset from argument</span>
+<span class="st2">csv_path</span> <span class="sy">=</span> <span class="st2">sys.argv[1]</span> <span class="sp">if</span> <span class="st2">len(sys.argv) &gt; 1</span> <span class="sp">else</span> <span class="sv">"data.csv"</span>
+<span class="st2">df</span> <span class="sy">=</span> <span class="sf">pd.read_csv</span><span class="sy">(</span><span class="st2">csv_path</span><span class="sy">)</span>
+
+<span class="sc2"># Basic shape</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"SHAPE: {df.shape[0]} rows x {df.shape[1]} cols"</span><span class="sy">)</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"COLUMNS: {list(df.columns)}"</span><span class="sy">)</span>
+
+<span class="sc2"># Missing values</span>
+<span class="st2">miss</span> <span class="sy">=</span> <span class="st2">df.isnull().sum()</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"MISSING:\n{miss[miss>0].to_string()}"</span><span class="sy">)</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"MISSING_PCT: {df.isnull().sum().sum()/df.size*100:.1f}%"</span><span class="sy">)</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"DUPLICATES: {df.duplicated().sum()}"</span><span class="sy">)</span>
+
+<span class="sc2"># Stats + skew + outliers per numeric column</span>
+<span class="sp">for</span> <span class="st2">col</span> <span class="sp">in</span> <span class="st2">df.select_dtypes(include='number').columns</span><span class="sy">:</span>
+    <span class="st2">skew</span> <span class="sy">=</span> <span class="st2">df[col].skew()</span>
+    <span class="st2">z</span> <span class="sy">=</span> <span class="sf">np.abs</span><span class="sy">(</span><span class="sf">stats.zscore</span><span class="sy">(</span><span class="st2">df[col].dropna()</span><span class="sy">))</span>
+    <span class="sf">print</span><span class="sy">(</span><span class="sv">f"COL {col}: mean={df[col].mean():.2f} std={df[col].std():.2f} skew={skew:.2f} outliers={(z>3).sum()}"</span><span class="sy">)</span>
+
+<span class="sc2"># Class distribution for target (last column)</span>
+<span class="st2">target</span> <span class="sy">=</span> <span class="st2">df.columns[-1]</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"TARGET: {target}"</span><span class="sy">)</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"CLASS_DIST:\n{df[target].value_counts(normalize=True).round(3).to_string()}"</span><span class="sy">)</span>
+
+<span class="sc2"># Top correlations</span>
+<span class="st2">num</span> <span class="sy">=</span> <span class="st2">df.select_dtypes(include='number')</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">f"TOP_CORR:\n{num.corr().iloc[:-1,-1].abs().sort_values(ascending=False).to_string()}"</span><span class="sy">)</span>
+<span class="sf">print</span><span class="sy">(</span><span class="sv">"DONE"</span><span class="sy">)</span>`,
+    title:'🐍 scripts/analyze.py — Runs Automatically',
+    body:'Claude executes this script and only the printed output enters the conversation context — not the 30+ lines of code. This saves tokens significantly. The script covers: shape, missing values, skewness, outliers, class balance, and correlations.',
+    hint:'💡 Scripts are token-efficient. 30 lines of code → ~15 lines of output → only those 15 lines cost you tokens.'
+  },
+  'ds-checklist':{ name:'references/ds-checklist.md', dot:'#93C5FD',
+    html:`<span class="sh2"># NTU DS Team — EDA Quality Checklist</span>
+
+<span class="sh2">## 🔴 Critical (always flag)</span>
+<span class="st2">- Data Leakage: any feature derived from target?</span>
+  <span class="st2">e.g. predicting grade but including exam_score</span>
+<span class="st2">- Class Imbalance: flag if any class &lt; 15%</span>
+  <span class="st2">Suggest: SMOTE, class_weight, F1 over accuracy</span>
+<span class="st2">- Target Skew: for regression, if |skew| &gt; 1</span>
+  <span class="st2">suggest log transform</span>
+
+<span class="sh2">## 🟡 Important</span>
+<span class="st2">- Missing &gt; 5%: flag + suggest imputation strategy</span>
+  <span class="st2">  Normal dist → mean, Skewed → median</span>
+  <span class="st2">  Categorical → mode or "Unknown"</span>
+  <span class="st2">  &gt; 40% missing → consider dropping column</span>
+<span class="st2">- Outliers: Z-score &gt; 3 — verify real or error</span>
+<span class="st2">- Skewness: |skew| &gt; 1 → log/sqrt for linear models</span>
+  <span class="st2">  Tree models are skew-tolerant</span>
+
+<span class="sh2">## 📊 First Model by Task</span>
+<span class="st2">Classification → LogReg then Random Forest</span>
+<span class="st2">Regression     → Linear then Ridge/XGBoost</span>
+<span class="st2">Clustering     → K-Means then DBSCAN</span>`,
+    title:'📋 references/ds-checklist.md — Team Knowledge Base',
+    body:'Your team\'s DS standards written once. Claude reads this on-demand when doing analysis — so it always checks for the same issues your team cares about. Think of it as a permanent briefing document for Claude.',
+    hint:'💡 References load on-demand — only when the skill needs them. Large docs don\'t waste tokens on unrelated messages.'
+  },
+  template:{ name:'assets/report-template.md', dot:'#EC4899',
+    html:`<span class="sh2"># EDA Report — {{FILENAME}}</span>
+<span class="st2">Generated by eda-analyst · NTU DS Team · {{DATE}}</span>
+<span class="sy">---</span>
+
+<span class="sh2">## 1. Dataset Summary</span>
+<span class="st2">| Property | Value |</span>
+<span class="st2">|----------|-------|</span>
+<span class="st2">| Rows | {{ROWS}} |</span>
+<span class="st2">| Features | {{FEATURES}} |</span>
+<span class="st2">| Missing | {{MISSING}} |</span>
+<span class="st2">| Duplicates | {{DUPLICATES}} |</span>
+<span class="st2">| Target | {{TARGET}} |</span>
+<span class="st2">| Class distribution | {{TARGET_DIST}} |</span>
+
+<span class="sh2">## 2. Key Statistics</span>
+<span class="st2">{{STATS_TABLE}}</span>
+
+<span class="sh2">## 3. Quality Flags</span>
+<span class="sy">🔴</span> <span class="st2">Critical: {{CRITICAL_FLAGS}}</span>
+<span class="sy">🟡</span> <span class="st2">Warnings: {{WARNING_FLAGS}}</span>
+<span class="sy">🟢</span> <span class="st2">Passed: {{PASSED_CHECKS}}</span>
+
+<span class="sh2">## 4. Top Correlations</span>
+<span class="st2">{{CORRELATIONS}}</span>
+
+<span class="sh2">## 5. Recommendations</span>
+<span class="st2">{{RECOMMENDATIONS}}</span>
+
+<span class="sh2">## 6. Suggested First Model</span>
+<span class="st2">{{RECOMMENDED_MODEL}}</span>
+<span class="sy">---</span>
+<span class="sc2">Auto-generated by eda-analyst Agent Skill</span>`,
+    title:'📝 assets/report-template.md — Consistent Output Every Time',
+    body:'Claude fills in the {{PLACEHOLDER}} values with real findings. The structure is always the same — whether it\'s your dataset or a Kaggle CSV. Consistent, professional, repeatable.',
+    hint:'💡 Templates are referenced by path, not loaded into context wholesale. Define structure once, use forever.'
+  },
+  root:{ name:'eda-analyst/', dot:'#A78BFA',
+    html:`<span class="sc2"># The eda-analyst Agent Skill folder</span>
+<span class="sc2"># ───────────────────────────────────</span>
+<span class="sc2">#</span>
+<span class="sc2">#  SKILL.md              ← trigger + instructions</span>
+<span class="sc2">#  scripts/analyze.py   ← Python EDA script</span>
+<span class="sc2">#  references/           ← DS quality checklist</span>
+<span class="sc2">#  assets/               ← report template</span>
+<span class="sc2">#</span>
+<span class="sc2"># Save to: ~/.claude/skills/eda-analyst/</span>
+<span class="sc2"># Claude finds it automatically on startup.</span>
+<span class="sc2"># The folder name = the /slash-command name.</span>`,
+    title:'📁 Skill Root Folder',
+    body:'The folder name becomes the skill name and slash command. SKILL.md is the only required file. scripts/, references/, and assets/ are optional but make the skill much more powerful.',
+    hint:'💡 Folder name = skill name = /slash-command name.'
+  },
+  'scripts-dir':{ name:'scripts/', dot:'#FBBF24',
+    html:`<span class="sc2"># scripts/ folder</span>
+<span class="sc2"># Claude runs these Python/bash files.</span>
+<span class="sc2"># Only stdout output enters context.</span>
+<span class="sc2"># The code itself never costs tokens.</span>
+<span class="sc2">#</span>
+<span class="sc2"># Great for: data loading, API calls,</span>
+<span class="sc2"># validation, anything deterministic.</span>`,
+    title:'📁 scripts/ — Executable Code',
+    body:'Anything you put here, Claude can run. Output-only context means code complexity is essentially free — only what\'s printed costs tokens.',
+    hint:'💡 50 lines of code → ~10 lines of output → only 10 lines cost tokens.'
+  },
+  'refs-dir':{ name:'references/', dot:'#93C5FD',
+    html:`<span class="sc2"># references/ folder</span>
+<span class="sc2"># Documentation Claude reads ON DEMAND.</span>
+<span class="sc2"># Not loaded on every message —</span>
+<span class="sc2"># only when the skill needs it.</span>
+<span class="sc2">#</span>
+<span class="sc2"># Good for: team standards, API docs,</span>
+<span class="sc2"># schemas, brand guidelines, checklists.</span>`,
+    title:'📁 references/ — Knowledge Base',
+    body:'Write down team knowledge that Claude should know for this skill. Large docs load on-demand — zero token waste on unrelated messages.',
+    hint:'💡 Put your team\'s implicit knowledge here. Make it explicit and reusable.'
+  },
+  'assets-dir':{ name:'assets/', dot:'#EC4899',
+    html:`<span class="sc2"># assets/ folder</span>
+<span class="sc2"># Static files Claude fills in or copies.</span>
+<span class="sc2"># Referenced by path, not loaded wholesale.</span>
+<span class="sc2">#</span>
+<span class="sc2"># Good for: report templates, email drafts,</span>
+<span class="sc2"># code boilerplate, config templates.</span>`,
+    title:'📁 assets/ — Templates & Static Files',
+    body:'Claude uses these as output templates. It fills in {{PLACEHOLDER}} values with real content each run. Same structure every time.',
+    hint:'💡 Define output structure once. Claude fills it in with real content every run.'
+  }
+};
+
+function dsShowFile(key, el) {
+  const f = dsFiles[key]; if(!f) return;
+  document.querySelectorAll('.tree-item').forEach(i=>i.classList.remove('ds-active'));
+  el.classList.add('ds-active');
+  document.getElementById('ds-fv-dot').style.background = f.dot;
+  document.getElementById('ds-fv-name').textContent = f.name;
+  document.getElementById('ds-fv-content').innerHTML = f.html;
+  document.getElementById('ds-fe-title').textContent = f.title;
+  document.getElementById('ds-fe-body').textContent = f.body;
+  document.getElementById('ds-fe-hint').textContent = f.hint;
+  const ex = document.getElementById('ds-fv-explain');
+  ex.classList.add('show');
+  document.getElementById('ds-file-viewer').style.borderColor = f.dot;
+}
+function dsHideFile(){
+  document.getElementById('ds-fv-explain').classList.remove('show');
+  document.getElementById('ds-file-viewer').style.borderColor='var(--border)';
+}
+
+// ── DS DEMO: SIM TABS ──
+function dsShowSim(id, el) {
+  document.querySelectorAll('.sim-tab').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.sim-pane').forEach(p=>p.classList.remove('act'));
+  el.classList.add('act');
+  document.getElementById('ds-pane-'+id).classList.add('act');
+}
+
+// ── DS DEMO: TERMINAL ANIMATION ──
+const dsTermLines = [
+  {c:'to-p', t:'$ python scripts/analyze.py student_grades.csv'},
+  {c:'to-sec', t:''},
+  {c:'to-o', t:'SHAPE: 200 rows x 8 cols'},
+  {c:'to-o', t:'COLUMNS: [student_id, study_hrs, attendance, prev_gpa, assignments, sleep_hrs, stress, final_grade]'},
+  {c:'to-sec', t:'── Missing Values ────────────────────────────────'},
+  {c:'to-w', t:'  sleep_hrs    6'},
+  {c:'to-o', t:'MISSING_PCT: 3.0%'},
+  {c:'to-s', t:'DUPLICATES: 0'},
+  {c:'to-sec', t:'── Numeric Statistics ────────────────────────────'},
+  {c:'to-o', t:'COL study_hrs:    mean=4.82 std=1.91 skew=0.42 outliers=2'},
+  {c:'to-o', t:'COL attendance:   mean=0.81 std=0.14 skew=-0.31 outliers=0'},
+  {c:'to-o', t:'COL prev_gpa:     mean=3.12 std=0.58 skew=-0.08 outliers=0'},
+  {c:'to-o', t:'COL assignments:  mean=0.87 std=0.12 skew=-0.45 outliers=1'},
+  {c:'to-w', t:'COL sleep_hrs:    mean=6.31 std=1.08 skew=0.71 outliers=3'},
+  {c:'to-sec', t:'── Target: final_grade ───────────────────────────'},
+  {c:'to-o', t:'CLASS_DIST:'},
+  {c:'to-o', t:'  B     0.410'},
+  {c:'to-o', t:'  A     0.280'},
+  {c:'to-o', t:'  C     0.230'},
+  {c:'to-w', t:'  F     0.080  ← class imbalance detected'},
+  {c:'to-sec', t:'── Top Correlations with target ──────────────────'},
+  {c:'to-hl', t:'  prev_gpa      0.870  ← strongest predictor'},
+  {c:'to-o', t:'  study_hrs     0.762'},
+  {c:'to-o', t:'  attendance    0.741'},
+  {c:'to-o', t:'  assignments   0.698'},
+  {c:'to-w', t:'  stress        0.312  ← consider dropping'},
+  {c:'to-s', t:''},
+  {c:'to-s', t:'✓ DONE — output ready for Claude to interpret'},
+];
+let dsAnimRunning=false;
+function dsRunTerminal(){
+  if(dsAnimRunning)return;
+  dsAnimRunning=true;
+  const el=document.getElementById('ds-terminal');
+  el.innerHTML='';
+  dsTermLines.forEach((line,i)=>{
+    setTimeout(()=>{
+      if(line.t===''){el.appendChild(document.createElement('br'));}
+      else{const s=document.createElement('span');s.className=line.c;s.textContent=line.t;el.appendChild(s);el.appendChild(document.createElement('br'));}
+      el.scrollTop=el.scrollHeight;
+      if(i===dsTermLines.length-1)dsAnimRunning=false;
+    },i*55);
+  });
+}
+
+// ── DS COPY HELPER ──
+function dsCopy(btn, text) {
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✅ Done';
+    setTimeout(()=>btn.textContent='📋 Copy',1800);
+  });
+}
+
+// ── INIT DS DEMO ──
+dsRenderTable();
 
 // ── INIT ──
 loadQuestion();
